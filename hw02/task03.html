@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>HW02 Task3</title>
+  <style>
+  * {
+      box-sizing: border-box;
+    }
+    .header {
+      background-color: black;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .column {
+      float: left;
+      padding: 20px;
+    }
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    .menu {
+      width: 33%;
+    }
+    .content {
+      width: 66%;
+    }
+    .menu ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    .menu li {
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: green;
+      color: white;
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body onload="load()">
+  <script>
+  function load(){
+    // document.getElementById('ipsem').style.display="block";
+    // document.getElementById('beer').style.display="none";
+    // document.getElementById('third').style.display="none";
+    var arr = document.querySelectorAll(".text");
+    for(var i=0; i< arr.length; i++){
+      arr[i].style.display = "none";
+    }
+    document.getElementById('ipsem').style.display="block";
+  }
+  function toggle(divId){
+    var arr = document.querySelectorAll(".text");
+    for(var i=0; i< arr.length; i++){
+      arr[i].style.display = "none";
+    }
+    document.getElementById(divId).style.display="block";
+    // if(divId === "ipsem"){
+    //   document.getElementById('ipsem').style.display="block";
+    //   document.getElementById('beer').style.display="none";
+    //   document.getElementById('third').style.display="none";
+    // } else if(divId === "beer"){
+    //   document.getElementById('ipsem').style.display="none";
+    //   document.getElementById('beer').style.display="block";
+    //   document.getElementById('third').style.display="none";
+    // } else {
+    //   document.getElementById('ipsem').style.display="none";
+    //   document.getElementById('beer').style.display="none";
+    //   document.getElementById('third').style.display="block";
+    // }
+  }
+  </script>
+
+<div class="header">
+  <h1>HW02 Task Three</h1>
+</div>
+
+<div class="clearfix">
+  <div class="column menu">
+    <ul>
+      <li style="display:block;" onclick="toggle('ipsem')">Lorem Ipsem</li>
+      <li style="display:block;" onclick="toggle('beer')">99 Bottles</li>
+      <li style="display:block;" onclick="toggle('third')">Last Thing</li>
+    </ul>
+  </div>
+
+  <div class="column content">
+
+    <div id="ipsem" class="text">
+      <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non-numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?</p>
+
+      <p>At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non-provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non-recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat…</p>
+
+      <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non-numquam [do] eius modi tempora inci[di]dunt, ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit, qui in ea voluptate velit esse, quam nihil molestiae consequatur, vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur?<p>
+
+      <p>At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non-provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non-recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat…</p>
+
+    </div>
+    <div id="beer" class="text">
+      <p>99 bottles of beer on the wall, 99 bottles of beer.
+         Take one down, pass it around, 98 bottles of beer on the wall...</p>
+      <p>98 bottles of beer on the wall, 98 bottles of beer.
+         Take one down, pass it around, 97 bottles of beer on the wall...</p>
+      <p>97 bottles of beer on the wall, 97 bottles of beer.
+         Take one down, pass it around, 96 bottles of beer on the wall...</p>
+      <p>No more bottles of beer on the wall, no more bottles of beer.
+         Go to the store and buy some more, 99 bottles of beer on the wall...</p>
+    </div>
+    <div id="third" class="text">
+      <p>this is the third thing</p>
+    </div>
+  </div>
+</div>
+<footer>&copy; Lorem Ipsem and 99 Beer Bottles are taken from Wikipedia</footer>
+
+
+
+</body>
+</html>
