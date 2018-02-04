@@ -24,7 +24,7 @@ defmodule Calc do
 
   def eval(line) do
     parsed = String.trim(line)  
-    input = String.split(String.replace(parsed," ", ""), "", trim: true) 
+    input = String.split(String.trim(String.replace(String.replace(parsed, "(", "( "), ")", " )")), " ")
     compute(input, length(input), [], [])
   end
 
@@ -36,16 +36,30 @@ defmodule Calc do
 
   # Base case
   def push_to_stack(input, len, acc1, acc2, ch) when len == 0 do
-    IO.inspect({acc1++[ch], acc2})
+    {myInt, _} = Integer.parse(ch) 
+    IO.inspect({acc1++[myInt], acc2})
   end
 
   def push_to_stack(input, len, acc1, acc2, ch) when ch == "+" do
     push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
   end
 
+  def push_to_stack(input, len, acc1, acc2, ch) when ch == "-" do
+    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
+  end
+
+  def push_to_stack(input, len, acc1, acc2, ch) when ch == "*" do
+    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
+  end
+
+  def push_to_stack(input, len, acc1, acc2, ch) when ch == "/" do
+    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
+  end
+
   # Mutual recurrsion
   def push_to_stack(input, len, acc1, acc2, ch) do
-    push_to_stack((tl input), len-1, acc1++[ch], acc2, (hd input))
+    {myInt, _} = Integer.parse(ch) 
+    push_to_stack((tl input), len-1, acc1++[myInt], acc2, (hd input))
   end
 
 
