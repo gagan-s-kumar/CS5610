@@ -25,13 +25,59 @@ defmodule Calc do
   def eval(line) do
     parsed = String.trim(line)  
     input = String.split(String.trim(String.replace(String.replace(parsed, "(", "( "), ")", " )")), " ")
-    compute(input, length(input), [], [])
+    #compute(input, length(input), [])
+
+    len = length(input)
+#    input
+#    |> Enum.map(&infix_to_postfix/1)
+    compute(input, length(input), [], [], (hd input))
   end
 
-  # acc1 for integer, acc2 for operands
+  def compute(input, n, stack, result, c) when n > 0 do
+    infix_to_postfix((tl input), n-1, stack, result, (hd input))
+  end
 
-  def compute(input, len, acc1, acc2) do
-    push_to_stack((tl input), len-1, acc1, acc2, (hd input))
+
+  def infix_to_postfix(input, n, stack, result, c) when n == 0 do
+    result
+  end
+
+  def infix_to_postfix(input, n, stack, result, c) when c >="0" and c <="9" do
+    IO.inspect(c)
+    result = result ++ [c]
+    IO.inspect(result)
+    infix_to_postfix((tl input), n-1, stack, result, (hd input))
+  end
+
+  def infix_to_postfix(input, n, stack, result, c) when c == "(" do
+    stack = stack ++ [c]
+    infix_to_postfix((tl input), n-1, stack, result, (hd input))
+  end
+
+  def infix_to_postfix(input, n, stack, result, c) do
+    default_function(stack, result, get_precedence(c), get_precedence(hd stack), c)
+  end
+
+  def default_function(stack, result, p1, p2, c) when length(stack) > 0 and p1 <= p2 do
+    result = result ++ [hd stack]
+    stack = stack ++ [c]
+    default_function(stack, result, get_precedence(c), get_precedence(hd stack), c) 
+  end
+
+  def get_precedence(operator) when operator == "+" or operator == "-" do
+    1
+  end
+
+  def get_precedence(operator) when operator == "*" or operator == "/" do
+    2 
+  end
+
+  def get_precedence(operator) when operator == "(" or operator == ")" do
+    3 
+  end
+
+  def get_precedence(_operator) do
+    -1
   end
 
   def get_answer(op1, op2, operator) when operator == "+" do
@@ -46,69 +92,9 @@ defmodule Calc do
     op1 * op2
   end
 
-  def get_answer(op1, op2, operator) do
+  def get_answer(op1, op2, _operator) do
     op1 / op2
   end
-
-  def do_compute(tuple) do
-    final_answer = tuple
-    IO.inspect(tuple)
-    val = elem(tuple, 0)
-    ops = elem(tuple, 1)
-    op1 = hd val
-    val = tl val
-    op2 = hd val
-    val = tl val
-    val = val ++ ["eos"]
-    operator = hd ops
-    ops = tl ops
-    answer = get_answer(op1, op2, operator)
-    IO.inspect(answer)
-    newval = [answer] ++ val
-    #newval = List.delete(newval, "eos")
-    {newval, ops}
-  end
-
-  # Base case
-  def push_to_stack(input, len, acc1, acc2, ch) when len == 0 and ch == ")" do
-    IO.inspect(do_compute({acc1, acc2++[ch]}))
-  end
-
-  def push_to_stack(input, len, acc1, acc2, ch) when len == 0 do
-    {myInt, _} = Integer.parse(ch) # Change this when () is added 
-    IO.inspect(do_compute({acc1++[myInt], acc2}))
-  end
-
-  def push_to_stack(input, len, acc1, acc2, ch) when ch == "+" do
-    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
-  end
-
-  def push_to_stack(input, len, acc1, acc2, ch) when ch == "-" do
-    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
-  end
-
-  def push_to_stack(input, len, acc1, acc2, ch) when ch == "*" do
-    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
-  end
-
-  def push_to_stack(input, len, acc1, acc2, ch) when ch == "/" do
-    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
-  end
-
-  def push_to_stack(input, len, acc1, acc2, ch) when ch == "(" do
-    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
-  end
-
-  def push_to_stack(input, len, acc1, acc2, ch) when ch == ")" do
-    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
-  end
-
-  # Mutual recurrsion
-  def push_to_stack(input, len, acc1, acc2, ch) do
-    {myInt, _} = Integer.parse(ch) 
-    push_to_stack((tl input), len-1, acc1++[myInt], acc2, (hd input))
-  end
-
-
+ 
 end
 Calc.main()
