@@ -39,6 +39,10 @@ defmodule Calc do
     IO.inspect({acc1++[ch], acc2})
   end
 
+  def push_to_stack(input, len, acc1, acc2, ch) when ch == "+" do
+    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
+  end
+
   # Mutual recurrsion
   def push_to_stack(input, len, acc1, acc2, ch) do
     push_to_stack((tl input), len-1, acc1++[ch], acc2, (hd input))
