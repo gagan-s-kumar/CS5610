@@ -25,29 +25,25 @@ defmodule Calc do
   def eval(line) do
     parsed = String.trim(line)  
     input = String.split(String.replace(parsed," ", ""), "", trim: true) 
-    input 
-    |> Enum.map(&push_to_stack/1)
+    compute(input, length(input), [], [])
   end
 
-  def push_to_stack(str) do
-    push_to_stack(str, [], [])
+  # acc1 for integer, acc2 for operands
+
+  def compute(input, len, acc1, acc2) do
+    push_to_stack((tl input), len-1, acc1, acc2, (hd input))
   end
 
-  #acc1 for integer, acc2 for operands
+  # Base case
+  def push_to_stack(input, len, acc1, acc2, ch) when len == 0 do
+    IO.inspect({acc1++[ch], acc2})
+  end
 
-  def push_to_stack(str, acc1, acc2) when str == "+" do
-    acc2 = acc2 ++ [str]
-    IO.inspect(str)
-    IO.inspect(acc1)
-    IO.inspect(acc2)
+  # Mutual recurrsion
+  def push_to_stack(input, len, acc1, acc2, ch) do
+    push_to_stack((tl input), len-1, acc1++[ch], acc2, (hd input))
   end
-  
-  def push_to_stack(str, acc1, acc2) do
-    acc1 = acc1 ++ [str]
-    IO.inspect(str)
-    IO.inspect(acc1)
-    IO.inspect(acc2)
-  end
+
 
 end
 Calc.main()
