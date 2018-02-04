@@ -5,13 +5,11 @@ defmodule Calc do
 
   @doc """
   Hello world.
-
   ## Examples
-
       iex> Calc.hello
       :world
-
   """
+
   def main() do
     case IO.gets(">") do
       :eof ->
@@ -25,9 +23,9 @@ defmodule Calc do
   end
 
   def eval(line) do
-    list = String.split(String.trim(line))
-    IO.inspect(list)
-    list
+    parsed = String.trim(line)  
+    input = String.split(String.replace(parsed," ", ""), "", trim: true) 
+    input 
     |> Enum.map(&push_to_stack/1)
   end
 
@@ -45,7 +43,11 @@ defmodule Calc do
   end
   
   def push_to_stack(str, acc1, acc2) do
+    acc1 = acc1 ++ [str]
+    IO.inspect(str)
+    IO.inspect(acc1)
+    IO.inspect(acc2)
   end
+
 end
 Calc.main()
-
