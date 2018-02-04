@@ -70,9 +70,12 @@ defmodule Calc do
   end
 
   # Base case
+  def push_to_stack(input, len, acc1, acc2, ch) when len == 0 and ch == ")" do
+    IO.inspect(do_compute({acc1, acc2++[ch]}))
+  end
+
   def push_to_stack(input, len, acc1, acc2, ch) when len == 0 do
     {myInt, _} = Integer.parse(ch) # Change this when () is added 
-    #IO.inspect({acc1++[myInt], acc2})
     IO.inspect(do_compute({acc1++[myInt], acc2}))
   end
 
@@ -89,6 +92,14 @@ defmodule Calc do
   end
 
   def push_to_stack(input, len, acc1, acc2, ch) when ch == "/" do
+    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
+  end
+
+  def push_to_stack(input, len, acc1, acc2, ch) when ch == "(" do
+    push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
+  end
+
+  def push_to_stack(input, len, acc1, acc2, ch) when ch == ")" do
     push_to_stack((tl input), len-1 , acc1, acc2++[ch], (hd input))
   end
 
