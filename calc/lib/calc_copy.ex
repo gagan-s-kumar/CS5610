@@ -80,25 +80,41 @@ defmodule Calc do
   end 
 
   def operator_fun(input, stack, result) do
-    IO.inspect("Check 1")
-    recursive_fun(input, stack, result, get_precedence(hd input), get_precedence(hd stack))
+    #IO.inspect("Check 1")
+    recursive_fun(input, stack, result)
   end
 
-  def recursive_fun(input, stack, result, p1, p2) when length(stack) != 0 and p1 <= p2 do
-    IO.inspect("stack") 
-    IO.inspect(stack) 
+  def recursive_fun(input, stack, result) do
+    if length(stack) !=0 and get_precedence(hd input) <= get_precedence(hd stack) do
+       #IO.inspect(stack)
+       newstack = elem(List.pop_at(stack, length(stack)-1), 1)
+       op = elem(List.pop_at(stack, length(stack)-1), 0)
+       stack = newstack
+       #IO.inspect("Pop")
+       #IO.inspect(op)
+       #IO.inspect(stack)
+       result = result ++ [op]
+       #IO.inspect("result")
+       #IO.inspect(result)
+       #IO.inspect("Check 2")
+       recursive_fun(input, stack, result)
+   else
+       stack = stack ++ [hd input]
+       #IO.inspect("Check 3")
+       {stack, result}
+   end 
+  end
+
+  def recursive_fun1(input, stack, result, p1, p2) when length(stack) != 0 and p1 <= p2 do
+    newstack = elem(List.pop_at(stack, length(stack)-1), 1)
     op = elem(List.pop_at(stack, length(stack)-1), 0)   
-    IO.inspect("Pop")
-    IO.inspect(op)
-    IO.inspect(stack) 
+    stack = newstack
     result = result ++ [op]
-    IO.inspect("Check 2")
-    recursive_fun(input, stack, result, get_precedence(hd input), get_precedence(hd stack))
+    recursive_fun1(input, stack, result, get_precedence(hd input), get_precedence(hd stack))
   end
 
-  def recursive_fun(input, stack, result, p1, p2) do
+  def recursive_fun1(input, stack, result, p1, p2) do
     stack = stack ++ [hd input]
-    IO.inspect("Check 3")
     {stack, result}
   end
 
