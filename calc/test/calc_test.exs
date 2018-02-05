@@ -7,7 +7,15 @@ defmodule CalcTest do
   end
 
   test "eval test" do
-    assert Calc.eval("3 + 4") == 7
+    assert Calc.eval("2 + 3") == 5
+    assert Calc.eval("5 * 1") == 5
+    assert Calc.eval("20 / 4") == 5
+    assert Calc.eval("24 / 6 + (5 - 4)") == 5
+    assert Calc.eval("1 + 3 * 3 + 1") == 11 
+  end
+
+  test "infix_to_postfix test" do
+    assert Calc.infix_to_postfix(["3", "+", "4"], 3, [], []) == 7
   end
 
 end

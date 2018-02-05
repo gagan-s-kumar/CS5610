@@ -34,16 +34,6 @@ defmodule Calc do
     infix_to_postfix(input, length(input), [], [])
   end
 
-  def infix_to_postfix(_input, n, stack, result) when n == 0 do
-    stack = Enum.reverse(stack)
-    result = result ++ stack
-    #IO.inspect(result)
-    answer = compute_postfix(result, length(result), [])    
-    #IO.inspect("Final result")
-    #IO.inspect answer,charlists: :as_lists
-    hd answer
-  end
-
   def compute_postfix(_postfix, n, answer) when n == 0 do
      answer
   end
@@ -69,6 +59,16 @@ defmodule Calc do
        postfix = tl postfix
        compute_postfix(postfix, n-1, answer)
    end
+  end
+
+  def infix_to_postfix(_input, n, stack, result) when n == 0 do
+    stack = Enum.reverse(stack)
+    result = result ++ stack
+    #IO.inspect(result)
+    answer = compute_postfix(result, length(result), [])    
+    #IO.inspect("Final result")
+    #IO.inspect answer,charlists: :as_lists
+    hd answer
   end
 
   def infix_to_postfix(input, n, stack, result) when ((hd input) >="0" and (hd input) <="9") do
@@ -99,6 +99,19 @@ defmodule Calc do
     infix_to_postfix(input, n-1, stack, result)
   end
 
+  def infix_to_postfix(input, n, stack, result) do
+
+    tuple = operator_fun(input, stack, result) 
+    stack = elem(tuple, 0)
+    result = elem(tuple, 1)
+
+    #IO.inspect(c)
+    #IO.inspect(stack)
+    #IO.inspect(result)
+    input = tl input
+    infix_to_postfix(input, n-1, stack, result)
+  end
+
   def bracket_recursive_function(stack, result) do
     if length(stack) !=0 and elem(List.pop_at(stack, length(stack)-1), 0) != "(" do
        #IO.inspect(stack)
@@ -112,19 +125,6 @@ defmodule Calc do
        stack = newstack
        {stack, result}
    end
-  end
-
-  def infix_to_postfix(input, n, stack, result) do
-
-    tuple = operator_fun(input, stack, result) 
-    stack = elem(tuple, 0)
-    result = elem(tuple, 1)
-
-    #IO.inspect(c)
-    #IO.inspect(stack)
-    #IO.inspect(result)
-    input = tl input
-    infix_to_postfix(input, n-1, stack, result)
   end
 
   def operator_fun(input, stack, result) when length(stack) == 0 do
