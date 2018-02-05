@@ -18,4 +18,8 @@ defmodule CalcTest do
     assert Calc.infix_to_postfix(["3", "+", "4"], 3, [], []) == 7
   end
 
+  test "compute_postfix test" do
+    assert Calc.compute_postfix([3, 4, "+"], 3, []) == [7]
+  end
+
 end
