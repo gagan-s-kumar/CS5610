@@ -28,20 +28,49 @@ defmodule Calc do
     #compute(input, length(input), [])
 
     len = length(input)
-    infix_to_postfix(input, length(input), [], [])
+    IO.puts(infix_to_postfix(input, length(input), [], []))
   end
 
   def infix_to_postfix(input, n, stack, result) when n == 0 do
     stack = Enum.reverse(stack)
     result = result ++ stack
-    result
-    IO.inspect("Final result")
-    IO.inspect(result)
+    #IO.inspect(result)
+    answer = compute_postfix(result, length(result), [])    
+    #IO.inspect("Final result")
+    #IO.inspect answer,charlists: :as_lists
+    hd answer
+  end
+
+  def compute_postfix(postfix, n, answer) when n == 0 do
+     answer
+  end
+
+  def compute_postfix(postfix, n, answer) do
+    if (is_integer(hd postfix)) do
+       answer = answer ++ [hd postfix]
+       
+       postfix = tl postfix
+       compute_postfix(postfix, n-1, answer)
+    else
+       newstack = elem(List.pop_at(answer, length(answer)-1), 1)
+       op2 = elem(List.pop_at(answer, length(answer)-1), 0)
+       answer = newstack
+      
+       newstack = elem(List.pop_at(answer, length(answer)-1), 1)
+       op1 = elem(List.pop_at(answer, length(answer)-1), 0)
+       answer = newstack
+     
+       sol = get_answer(op1, op2, (hd postfix))
+       answer = answer ++ [sol]
+  
+       postfix = tl postfix
+       compute_postfix(postfix, n-1, answer)
+   end
   end
 
   def infix_to_postfix(input, n, stack, result) when (hd input) >="0" and (hd input) <="9" do
     c = hd input
-    result = result ++ [c]
+    result = result ++ [String.to_integer(c)]
     #IO.inspect(c)
     #IO.inspect(stack)
     #IO.inspect(result)
@@ -171,7 +200,7 @@ defmodule Calc do
   end
 
   def get_answer(op1, op2, _operator) do
-    op1 / op2
+    div(op1, op2)
   end
  
 end
