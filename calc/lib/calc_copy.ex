@@ -59,6 +59,30 @@ defmodule Calc do
     infix_to_postfix(input, n-1, stack, result)
   end
 
+  def infix_to_postfix(input, n, stack, result) when (hd input) ==")" do
+    tuple = bracket_recursive_function(stack, result) 
+    stack = elem(tuple, 0)
+    result = elem(tuple, 1)
+    input = tl input
+    infix_to_postfix(input, n-1, stack, result)
+  end
+
+  def bracket_recursive_function(stack, result) do
+    if length(stack) !=0 and elem(List.pop_at(stack, length(stack)-1), 0) != "(" do
+       #IO.inspect(stack)
+       newstack = elem(List.pop_at(stack, length(stack)-1), 1)
+       op = elem(List.pop_at(stack, length(stack)-1), 0)
+       stack = newstack
+       result = result ++ [op]
+       bracket_recursive_function(stack, result)
+   else
+       newstack = elem(List.pop_at(stack, length(stack)-1), 1)
+       op = elem(List.pop_at(stack, length(stack)-1), 0)
+       stack = newstack
+       {stack, result}
+   end
+  end
+
   def infix_to_postfix(input, n, stack, result) do
     c = hd input
 
@@ -85,7 +109,7 @@ defmodule Calc do
   end
 
   def recursive_fun(input, stack, result) do
-    if length(stack) !=0 and get_precedence(hd input) <= get_precedence(hd stack) do
+    if length(stack) !=0 and get_precedence(hd input) <= get_precedence(hd stack) and elem(List.pop_at(stack, length(stack)-1), 0) != "(" do
        #IO.inspect(stack)
        newstack = elem(List.pop_at(stack, length(stack)-1), 1)
        op = elem(List.pop_at(stack, length(stack)-1), 0)
