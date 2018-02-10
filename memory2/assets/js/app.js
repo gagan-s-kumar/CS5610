@@ -34,6 +34,14 @@ import socket from "./socket";
 
 import game_init from "./memory";
 
+function form_init() {
+  let channel = socket.channel("games:demo", {});
+  channel.join()
+         .receive("ok", resp => { console.log("Joined successfully", resp) })
+         .receive("error", resp => { console.log("Unable to join", resp) });
+}
+
+
 function start() {
   let root = document.getElementById('root');
   if (root) {
