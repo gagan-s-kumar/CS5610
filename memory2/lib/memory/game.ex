@@ -20,7 +20,8 @@ defmodule Memory.Game do
               %{value: 'C', face: false, match: false, pos: 13}, 
               %{value: 'B', face: false, match: false, pos: 14}, 
               %{value: 'A', face: false, match: false, pos: 15}],
-     score: 0
+     score: 0,
+     clicks: 0
     }
     #IO.puts("new called")
   end
@@ -39,7 +40,8 @@ defmodule Memory.Game do
       extras: Enum.filter(gs, &(!Enum.member?(ws, &1))),
       max: max_guesses(),
       cards: game.cardlist,
-      score: game.score
+      score: game.score,
+      clicks: game.clicks
     }
     #IO.puts("client_view called")
   end
@@ -81,10 +83,13 @@ defmodule Memory.Game do
   def flip(game, pos) do
     cards = game.cardlist
     new_cards = change_face(cards, pos)
-    Map.put(game, :cardlist, new_cards)
+    new_game = Map.put(game, :cardlist, new_cards)
 
-    #new_score = game.score - 5
-    #Map.put(game, :score, new_score)
+    new_score = new_game.score - 5
+    new_game2 = Map.put(new_game, :score, new_score)
+
+    new_clicks = new_clicks = new_game2.clicks + 1
+    Map.put(new_game2, :clicks, new_clicks)
 
   end
 
