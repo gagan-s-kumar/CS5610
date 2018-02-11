@@ -22,7 +22,7 @@ defmodule Memory.Game do
               %{value: "A", face: false, match: false, pos: 15}],
      score: 0,
      clicks: 0,
-     previous_card: "Z"
+     previous_card: "A"
     }
   end
 
@@ -96,7 +96,7 @@ defmodule Memory.Game do
 
   # Return Char
   def set_previous_letter(cards, pos, clicks, previous_card) do
-    Enum.map cards, fn card ->
+    Enum.reduce(cards, fn(card) ->
       if Map.fetch!(card, :pos) == pos and rem(clicks, 2) != 0 do
         Map.get(card, :value)
       else if Map.fetch!(card, :pos) == pos and rem(clicks, 2) == 0 do
@@ -105,7 +105,7 @@ defmodule Memory.Game do
         previous_card
       end
      end
-    end
+    end)
   end
 
   def flip(game, pos) do
@@ -128,12 +128,19 @@ defmodule Memory.Game do
     #new_previous = set_previous_letter(new_game3.cardlist, pos, new_game3.clicks, new_game3.previous_card)
     #Map.put(new_game3, :previous_card, new_previous)  
 
-    #For Even Clicks induce delay
+  end
 
-
-    #Check for match and update cards
-
- 
+  def match_cards(cards, previous, clicks) do
+    if rem(clicks, 2) != 0 do
+       cards
+    else Enum.map cards, fn card ->
+      if Map.fetch!(card, :value) == previous do
+	Map.put(card, :match, true)
+      else 
+	card
+      end
+     end 
+    end
 
   end
 
@@ -142,9 +149,21 @@ defmodule Memory.Game do
     if(rem(game.clicks, 2) == 0) do
       Process.sleep(1000)
     end
-    cards = game.cardlist
+
+    #Card Match function Call goes here
+
+    cards = match_cards(game.cardlist, game.previous_card, game.clicks)
+
     new_cards = close_face(cards, pos, game.clicks)
-    Map.put(game, :cardlist, new_cards)
+    new_game = Map.put(game, :cardlist, new_cards)
+
+
+
+    if(rem(new_game.clicks, 2) == 0) do
+      Map.put(new_game, :previous_card, "Z")
+    else
+      Map.put(new_game, :previous_card, new_game.previous_card)
+    end
     
   end
 
