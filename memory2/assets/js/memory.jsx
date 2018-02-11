@@ -58,13 +58,18 @@ class MemoryGame extends React.Component {
         .receive("ok", this.gotView.bind(this));
   }
 
+  reset(cardlist) {
+    this.channel.push("reset", { cardlist: cardlist })
+        .receive("ok", this.gotView.bind(this));
+  }
+
 
   toggle(side) {
     var side = +!this.state.side;
     this.setState({side: side});
   }
   
-  reset() {
+  resetold() {
 	for(var i=0; i <16; i++){
 		this.state.cards[i].face = false;
 		this.state.cards[i].match = false;
@@ -224,7 +229,7 @@ class MemoryGame extends React.Component {
 				<Card root={this} pos={15} />	
 			</div>
 		</div>
-		<button type="button" onClick={() => this.reset()}>Reset</button>
+		<button type="button" onClick={() => this.reset(_.shuffle(this.state.cards))}>Reset</button>
 		<h1>Score</h1>
 		<h1 id="score">{this.state.score}</h1>
       <div className="row">

@@ -22,7 +22,7 @@ defmodule Memory.Game do
               %{value: "A", face: false, match: false, pos: 15}],
      score: 0,
      clicks: 0,
-     previous_card: "A"
+     previous_card: %{value: "Z", face: false, match: false, pos: 20}
     }
   end
 
@@ -96,52 +96,84 @@ defmodule Memory.Game do
 
   # Return Char
   def set_previous_letter(cards, pos, clicks, previous_card) do
-    Enum.reduce(cards, fn(card) ->
-      if Map.fetch!(card, :pos) == pos and rem(clicks, 2) != 0 do
-        Map.get(card, :value)
-      else if Map.fetch!(card, :pos) == pos and rem(clicks, 2) == 0 do
-        "Z"
-      else
-        previous_card
+    if(rem(clicks, 2) == 0) do
+       %{value: "Z", face: false, match: false, pos: 20}
+    else
+    Enum.find cards, fn card ->
+      if Map.fetch!(card, :pos) == pos do
+	Map.get(card, :value)
       end
-     end
-    end)
+     end 
+    end
   end
 
   def flip(game, pos) do
 
     #Decrement the Score
     new_score = game.score - 5
-    new_game = Map.put(game, :score, new_score)
+    new_game2 = Map.put(game, :score, new_score)
 
-    #Increment the Clicks
-    new_clicks = new_game.clicks + 1
-    new_game2 = Map.put(new_game, :clicks, new_clicks)
 
     #Change the face of the card
     cards = new_game2.cardlist
     new_cards = change_face(cards, pos)
     new_game3 = Map.put(new_game2, :cardlist, new_cards)
 
+    #Card Match function Call goes here
+
+    cards = match_cards2(new_game3.cardlist, game.previous_card, pos)
+
+    new_game4 = Map.put(new_game3, :cardlist, cards)
+
+    #Increment the Clicks
+    new_clicks = new_game4.clicks + 1
+    new_game5 = Map.put(new_game4, :clicks, new_clicks)
 
     #Set the Previous Card value for odd clicks
-    #new_previous = set_previous_letter(new_game3.cardlist, pos, new_game3.clicks, new_game3.previous_card)
-    #Map.put(new_game3, :previous_card, new_previous)  
+    new_previous = set_previous_letter(new_game5.cardlist, pos, new_game5.clicks, new_game5.previous_card)
+    Map.put(new_game5, :previous_card, new_previous)  
 
   end
 
-  def match_cards(cards, previous, clicks) do
-    if rem(clicks, 2) != 0 do
-       cards
-    else Enum.map cards, fn card ->
-      if Map.fetch!(card, :value) == previous do
+  def match_cards(cards, previous, clicks, pos) do
+    IO.inspect("In match_cards")
+      IO.inspect(cards)
+      IO.inspect(previous)
+      IO.inspect(clicks)
+#    if rem(clicks, 2) != 0 do
+#       IO.inspect("In If statement")
+#       cards
+      Enum.map cards, fn card ->
+      IO.inspect(card)
+      IO.inspect(previous)
+      if Map.fetch!(card, :value) == Map.fetch!(previous, :value) and (Map.fetch!(card, :pos) == Map.fetch!(previous, :pos) or Map.fetch!(card, :pos) == pos) do
 	Map.put(card, :match, true)
       else 
 	card
       end
-     end 
+     #end 
     end
 
+  end
+
+  def match_cards2(cards, previous, pos) do
+    current_card = Enum.find cards, fn card ->
+                    if Map.fetch!(card, :pos) == pos do
+	               card
+                    end
+                   end
+    if Map.fetch!(current_card, :value) == Map.fetch!(previous, :value) do
+       Enum.map cards, fn card ->
+       if Map.fetch!(card, :value) == Map.fetch!(previous, :value) and Map.fetch!(card, :value) == Map.fetch!(current_card, :value) do
+          Map.put(card, :match, true)
+       else
+         card
+       end
+      end
+    else
+      cards
+    end
+ 
   end
 
   def flop(game, pos) do
@@ -150,9 +182,8 @@ defmodule Memory.Game do
       Process.sleep(1000)
     end
 
-    #Card Match function Call goes here
 
-    cards = match_cards(game.cardlist, game.previous_card, game.clicks)
+    cards = game.cardlist
 
     new_cards = close_face(cards, pos, game.clicks)
     new_game = Map.put(game, :cardlist, new_cards)
@@ -160,11 +191,15 @@ defmodule Memory.Game do
 
 
     if(rem(new_game.clicks, 2) == 0) do
-      Map.put(new_game, :previous_card, "Z")
+      Map.put(new_game, :previous_card, %{value: "Z", face: false, match: false, pos: 20})
     else
       Map.put(new_game, :previous_card, new_game.previous_card)
     end
     
+  end
+
+  def reset(game, cardlist) do
+	Map.put(game, :cardlist, cardlist)
   end
 
   def max_guesses do
