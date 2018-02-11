@@ -81,14 +81,17 @@ defmodule Memory.Game do
      end 
   end
 
-  def close_face(cards, pos) do
-    Enum.map cards, fn card ->
+  def close_face(cards, pos, clicks) do
+    if rem(clicks, 2) != 0 do
+       cards
+    else Enum.map cards, fn card ->
       if Map.fetch!(card, :match) == false do
 	Map.put(card, :face, false)
       else 
 	card
       end
      end 
+    end
   end
 
   # Return Char
@@ -136,9 +139,11 @@ defmodule Memory.Game do
 
   def flop(game, pos) do
     #Close the face of the card for even clicks
-    Process.sleep(3000)
+    if(rem(game.clicks, 2) == 0) do
+      Process.sleep(1000)
+    end
     cards = game.cardlist
-    new_cards = close_face(cards, pos)
+    new_cards = close_face(cards, pos, game.clicks)
     Map.put(game, :cardlist, new_cards)
     
   end
