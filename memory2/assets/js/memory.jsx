@@ -20,29 +20,13 @@ class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
     this.channel = props.channel;
-    this.state = { clicks: 0,
-		   score: 0,
-		   cards: [{value:'A', face:false, match:false, pos:0},
-			   {value:'B', face:false, match:false, pos:1},
-			   {value:'C', face:false, match:false, pos:2},
-			   {value:'D', face:false, match:false, pos:3},
-			   {value:'E', face:false, match:false, pos:4},
-			   {value:'F', face:false, match:false, pos:5},
-			   {value:'G', face:false, match:false, pos:6},
-			   {value:'H', face:false, match:false, pos:7},
-			   {value:'H', face:false, match:false, pos:8},
-			   {value:'G', face:false, match:false, pos:9},
-			   {value:'F', face:false, match:false, pos:10},
-			   {value:'E', face:false, match:false, pos:11},
-			   {value:'D', face:false, match:false, pos:12},
-			   {value:'C', face:false, match:false, pos:13},
-			   {value:'B', face:false, match:false, pos:14},
-			   {value:'A', face:false, match:false, pos:15}
-			],
-		previousCardPos: -1,
+    this.state = { skel: "", goods: [], bads: [], max: 10, 
+                   cards: [],
+                   clicks: 0,
+                   score: 0,
+			previousCardPos: -1,
                 totalMatches:  0,
-		lockScreen: false 	
-		};
+		lockScreen: false  };
 
     this.channel.join()
         .receive("ok", this.gotView.bind(this))
@@ -52,6 +36,11 @@ class MemoryGame extends React.Component {
   gotView(view) {
     console.log("New view", view);
     this.setState(view.game);
+  }
+
+  sendGuess(ev) {
+    this.channel.push("guess", { letter: ev.key })
+        .receive("ok", this.gotView.bind(this));
   }
 
   toggle(side) {
@@ -156,13 +145,13 @@ class MemoryGame extends React.Component {
 		   cards: this.state.cards,
 		   score: this.state.score,
                    previousCardPos: this.state.previousCardPos});
- //   console.log(this.state);
+   //   console.log(this.state);
   }
 
   render() {
     var toggle = this.toggle.bind(this);
     return (
-	<div className="container">
+      <div className="container">
  		<div className="row">
 			<div className="col-md">
 				<Card root={this} pos={0} />	
@@ -222,11 +211,29 @@ class MemoryGame extends React.Component {
 		<button type="button" onClick={() => this.reset()}>Reset</button>
 		<h1>Score</h1>
 		<h1 id="score">0</h1>
-	</div>
+      <div className="row">
+
+
+        <div className="col-6">
+          <Word state={this.state} />
+        </div>
+        <div className="col-6">
+          <Lives state={this.state} />
+        </div>
+        <div className="col-6">
+          <Guesses state={this.state} />
+        </div>
+        <div className="col-6">
+          <GuessInput guess={this.sendGuess.bind(this)} />
+        </div>
+      </div>
+   </div>
     );
   }
 }
+
 function Card(params){
+        if(params.root.state.cards.length != 0) {
 	if(params.root.state.cards[params.pos].face == true && params.root.state.cards[params.pos].match == false){
 		let ele = params.root.state.cards[params.pos].value;
 		return	<div className="card" onClick={() => params.root.flip(params.pos)}>
@@ -239,4 +246,47 @@ function Card(params){
 		return	<div className="closecard" onClick={() => params.root.flip(params.pos)}>
 		Click Me </div>;
 	}
+       } else {
+		return <div> Loading</div>
+	}
+}
+
+function Word(params) {
+  let state = params.state;
+
+  let letters = _.map(state.skel, (xx, ii) => {
+    return <span style={{padding: "1ex"}} key={ii}>{xx}</span>;
+  });
+
+  return (
+    <div>
+      <p><b>The Word</b></p>
+      <p>{letters}</p>
+    </div>
+  );
+}
+
+function Lives(params) {
+  let state = params.state;
+
+  return <div>
+    <p><b>Guesses Left:</b></p>
+    <p>{state.max - state.bads.length}</p>
+  </div>;
+}
+
+function Guesses(params) {
+  let state = params.state;
+
+  return <div>
+    <p><b>Bad Guesses</b></p>
+    <p>{state.bads.join(" ")}</p>
+  </div>;
+}
+
+function GuessInput(params) {
+  return <div>
+    <p><b>Type Your Guesses</b></p>
+    <p><input type="text" onKeyPress={params.guess} /></p>
+  </div>;
 }
