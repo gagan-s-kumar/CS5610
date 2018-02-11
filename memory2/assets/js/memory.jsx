@@ -24,7 +24,7 @@ class MemoryGame extends React.Component {
                    cards: [],
                    clicks: 0,
                    score: 0,
-			previousCardPos: -1,
+		   previous_card: "",
                 totalMatches:  0,
 		lockScreen: false  };
 
@@ -43,8 +43,18 @@ class MemoryGame extends React.Component {
         .receive("ok", this.gotView.bind(this));
   }
 
+  change(pos) {
+    this.flip(pos)
+    this.flop(pos)
+  }
+
   flip(pos) {
     this.channel.push("flip", { pos: pos })
+        .receive("ok", this.gotView.bind(this));
+  }
+
+  flop(pos) {
+    this.channel.push("flop", { pos: pos })
         .receive("ok", this.gotView.bind(this));
   }
 
@@ -242,14 +252,14 @@ function Card(params){
   if(params.root.state.cards.length != 0) {
 	if(params.root.state.cards[params.pos].face == true && params.root.state.cards[params.pos].match == false){
 		let ele = params.root.state.cards[params.pos].value;
-		return	<div className="card" onClick={() => params.root.flip(params.pos)}>
+		return	<div className="card" onClick={() => params.root.change(params.pos)}>
 			{ele}</div>
 	} else if(params.root.state.cards[params.pos].match == true){
                 let ele = params.root.state.cards[params.pos].value;
                 return  <div className="donecard">
                         {ele}</div>
 	} else{
-		return	<div className="closecard" onClick={() => params.root.flip(params.pos)}>
+		return	<div className="closecard" onClick={() => params.root.change(params.pos)}>
 		Click Me </div>;
 	}
   } else {

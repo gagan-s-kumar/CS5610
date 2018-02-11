@@ -23,6 +23,12 @@ defmodule MemoryWeb.GamesChannel do
     {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
   end
 
+  def handle_in("flop", %{"pos" => ll}, socket) do
+    game = Game.flop(socket.assigns[:game], ll)
+    socket = assign(socket, :game, game)
+    {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
+  end
+
   # Add authorization logic here as required.
   defp authorized?(_payload) do
     true
