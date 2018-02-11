@@ -43,6 +43,12 @@ class MemoryGame extends React.Component {
         .receive("ok", this.gotView.bind(this));
   }
 
+  flip(pos) {
+    this.channel.push("flip", { pos: pos })
+        .receive("ok", this.gotView.bind(this));
+  }
+
+
   toggle(side) {
     var side = +!this.state.side;
     this.setState({side: side});
@@ -119,7 +125,7 @@ class MemoryGame extends React.Component {
     }
   }
 
-  flip(pos) {
+  flip2(pos) {
     if(this.state.cards[pos].match) {
         return;
     }
@@ -233,7 +239,7 @@ class MemoryGame extends React.Component {
 }
 
 function Card(params){
-        if(params.root.state.cards.length != 0) {
+  if(params.root.state.cards.length != 0) {
 	if(params.root.state.cards[params.pos].face == true && params.root.state.cards[params.pos].match == false){
 		let ele = params.root.state.cards[params.pos].value;
 		return	<div className="card" onClick={() => params.root.flip(params.pos)}>
@@ -246,9 +252,9 @@ function Card(params){
 		return	<div className="closecard" onClick={() => params.root.flip(params.pos)}>
 		Click Me </div>;
 	}
-       } else {
-		return <div> Loading</div>
-	}
+  } else {
+		return <div> Loading </div>
+  }
 }
 
 function Word(params) {
