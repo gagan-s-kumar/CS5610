@@ -5,7 +5,7 @@ defmodule MemoryWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      game = Game.new()
+      game = Memory.GameBackup.load(name) || Game.new()
       socket = socket
       |> assign(:game, game)
       |> assign(:name, name)
@@ -19,18 +19,21 @@ defmodule MemoryWeb.GamesChannel do
   # by sending replies to requests from the client
   def handle_in("flip", %{"pos" => ll}, socket) do
     game = Game.flip(socket.assigns[:game], ll)
+    Memory.GameBackup.save(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
   end
 
   def handle_in("flop", %{"pos" => ll}, socket) do
     game = Game.flop(socket.assigns[:game], ll)
+    Memory.GameBackup.save(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
   end
 
   def handle_in("reset", %{"cardlist" => ll}, socket) do
     game = Game.reset(socket.assigns[:game], ll)
+    Memory.GameBackup.save(socket.assigns[:name], game)
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
   end
