@@ -216,7 +216,7 @@ class MemoryGame extends React.Component {
 		</div>
 		<button type="button" onClick={() => this.reset()}>Reset</button>
 		<h1>Score</h1>
-		<h1 id="score">0</h1>
+		<h1 id="score">{this.state.score}</h1>
       <div className="row">
 
 

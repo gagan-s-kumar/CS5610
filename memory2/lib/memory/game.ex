@@ -68,10 +68,23 @@ defmodule Memory.Game do
     Map.put(game, :guesses, gs)
   end
 
-  def flip(game, pos) do
+  def change_face(cards, pos) do
+    Enum.map cards, fn card ->
+      if Map.fetch!(card, :pos) == pos do
+	Map.put(card, :face, true)
+      else 
+	card
+      end
+     end 
+  end
 
-    new_score = game.score - 5
-    Map.put(game, :score, new_score)
+  def flip(game, pos) do
+    cards = game.cardlist
+    new_cards = change_face(cards, pos)
+    Map.put(game, :cardlist, new_cards)
+
+    #new_score = game.score - 5
+    #Map.put(game, :score, new_score)
 
   end
 
