@@ -1,26 +1,36 @@
 defmodule Memory.Game do
+
+  def card_function do
+    [
+     %{value: "A", face: false, match: false, pos: 0},
+     %{value: "B", face: false, match: false, pos: 1},
+     %{value: "C", face: false, match: false, pos: 2},
+     %{value: "D", face: false, match: false, pos: 3},
+     %{value: "E", face: false, match: false, pos: 4},
+     %{value: "F", face: false, match: false, pos: 5},
+     %{value: "G", face: false, match: false, pos: 6},
+     %{value: "H", face: false, match: false, pos: 7},
+     %{value: "H", face: false, match: false, pos: 8}, 
+     %{value: "G", face: false, match: false, pos: 9}, 
+     %{value: "F", face: false, match: false, pos: 10},
+     %{value: "E", face: false, match: false, pos: 11},
+     %{value: "D", face: false, match: false, pos: 12},
+     %{value: "C", face: false, match: false, pos: 13}, 
+     %{value: "B", face: false, match: false, pos: 14}, 
+     %{value: "A", face: false, match: false, pos: 15}]
+  end
+
+  def shuffle_cards(cards) do
+    new_cards = Enum.shuffle(cards)
+    elem(Enum.map_reduce(new_cards, 0, fn(x, acc) -> {x |> Map.put(:pos, acc), acc + 1} end), 0)
+  end
+
   def new do
     %{
-      cardlist: [
-              %{value: "A", face: false, match: false, pos: 0}, 
-              %{value: "B", face: false, match: false, pos: 1}, 
-              %{value: "C", face: false, match: false, pos: 2}, 
-              %{value: "D", face: false, match: false, pos: 3}, 
-              %{value: "E", face: false, match: false, pos: 4}, 
-              %{value: "F", face: false, match: false, pos: 5}, 
-              %{value: "G", face: false, match: false, pos: 6}, 
-              %{value: "H", face: false, match: false, pos: 7}, 
-              %{value: "H", face: false, match: false, pos: 8}, 
-              %{value: "G", face: false, match: false, pos: 9}, 
-              %{value: "F", face: false, match: false, pos: 10}, 
-              %{value: "E", face: false, match: false, pos: 11}, 
-              %{value: "D", face: false, match: false, pos: 12}, 
-              %{value: "C", face: false, match: false, pos: 13}, 
-              %{value: "B", face: false, match: false, pos: 14}, 
-              %{value: "A", face: false, match: false, pos: 15}],
-     score: 0,
-     clicks: 0,
-     previous_card: %{value: "Z", face: false, match: false, pos: 20}
+      cardlist: shuffle_cards(card_function()),
+      score: 0,
+      clicks: 0,
+      previous_card: %{value: "Z", face: false, match: false, pos: 20}
     }
   end
 
@@ -35,6 +45,8 @@ defmodule Memory.Game do
   end
 
   def change_face(cards, pos) do
+    #IO.inspect("pos")
+    #IO.inspect(pos)
     Enum.map cards, fn card ->
       if Map.fetch!(card, :pos) == pos do
 	Map.put(card, :face, true)
@@ -147,12 +159,10 @@ defmodule Memory.Game do
   end
 
   def reset(game, cardlist) do
-    reset_map = Map.put(game, :cardlist, cardlist)
-    reset_cards = game.cardlist
-    new_cards = close_face(reset_cards, game.clicks)
-    game_reset_cards = Map.put(game, :cardlist, new_cards)
-    game_reset_clicks = Map.put(game_reset_cards, :clicks, 0)
-    Map.put(game_reset_clicks, :score, 0)
+    new_cards_game = Map.put(game, :cardlist, shuffle_cards(card_function()))
+    score_reset_game = Map.put(new_cards_game, :score, 0)
+    clicks_reset_game = Map.put(score_reset_game, :clicks, 0)
+    Map.put(clicks_reset_game, :previous_card, %{value: "Z", face: false, match: false, pos: 20}) 
   end
 
 end
