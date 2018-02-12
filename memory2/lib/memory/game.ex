@@ -158,7 +158,7 @@ defmodule Memory.Game do
     end
   end
 
-  def reset(game, cardlist) do
+  def reset(game, _trigger) do
     new_cards_game = Map.put(game, :cardlist, shuffle_cards(card_function()))
     score_reset_game = Map.put(new_cards_game, :score, 0)
     clicks_reset_game = Map.put(score_reset_game, :clicks, 0)
