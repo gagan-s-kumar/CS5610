@@ -176,7 +176,8 @@ defmodule Memory.Game do
     new_cards_game = Map.put(game, :cardlist, shuffle_cards(card_function()))
     score_reset_game = Map.put(new_cards_game, :score, 0)
     clicks_reset_game = Map.put(score_reset_game, :clicks, 0)
-    Map.put(clicks_reset_game, :previous_card, %{value: "Z", face: false, match: false, pos: 20}) 
+    active_reset_game = Map.put(clicks_reset_game, :active_cards, 0)
+    Map.put(active_reset_game, :previous_card, %{value: "Z", face: false, match: false, pos: 20}) 
   end
 
 end
