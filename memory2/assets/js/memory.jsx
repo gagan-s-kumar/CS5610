@@ -15,8 +15,7 @@ class MemoryGame extends React.Component {
                    clicks: 0,
                    score: 0,
 		   previous_card: "",
-                totalMatches:  0,
-		lockScreen: false  };
+		   active_cards: 0 };
 
     this.channel.join()
         .receive("ok", this.gotView.bind(this))

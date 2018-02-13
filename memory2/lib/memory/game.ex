@@ -30,7 +30,8 @@ defmodule Memory.Game do
       cardlist: shuffle_cards(card_function()),
       score: 0,
       clicks: 0,
-      previous_card: %{value: "Z", face: false, match: false, pos: 20}
+      previous_card: %{value: "Z", face: false, match: false, pos: 20},
+      active_cards: 0
     }
   end
 
@@ -40,7 +41,8 @@ defmodule Memory.Game do
       cards: game.cardlist,
       score: game.score,
       clicks: game.clicks,
-      previous_card: game.previous_card
+      previous_card: game.previous_card,
+      active_cards: game.active_cards
     }
   end
 
@@ -82,24 +84,30 @@ defmodule Memory.Game do
 
   def flip(game, pos) do
 
-    #Change the face of the card
-    cards = game.cardlist
-    new_cards = change_face(cards, pos)
-    new_game3 = Map.put(game, :cardlist, new_cards)
+    #If two cards are active, return
+    if(game.active_cards > 2) do
+       game
+  
+    else
+      new_game2 = Map.put(game, :active_cards, game.active_cards + 1)
+      #Change the face of the card
+      cards = new_game2.cardlist
+      new_cards = change_face(cards, pos)
+      new_game3 = Map.put(new_game2, :cardlist, new_cards)
 
-    #Cards are matched
-    cards = match_cards(new_game3.cardlist, game.previous_card, pos)
+      #Cards are matched
+      cards = match_cards(new_game3.cardlist, game.previous_card, pos)
 
-    new_game4 = Map.put(new_game3, :cardlist, cards)
+      new_game4 = Map.put(new_game3, :cardlist, cards)
 
-    #Increment the Clicks
-    new_clicks = new_game4.clicks + 1
-    new_game5 = Map.put(new_game4, :clicks, new_clicks)
+      #Increment the Clicks
+      new_clicks = new_game4.clicks + 1
+      new_game5 = Map.put(new_game4, :clicks, new_clicks)
 
-    #Set the Previous Card value for odd clicks
-    new_previous = set_previous_letter(new_game5.cardlist, pos, new_game5.clicks)
-    Map.put(new_game5, :previous_card, new_previous)  
-
+      #Set the Previous Card value for odd clicks
+      new_previous = set_previous_letter(new_game5.cardlist, pos, new_game5.clicks)
+      Map.put(new_game5, :previous_card, new_previous)  
+    end
   end
 
   def match_cards(cards, previous, pos) do
@@ -140,21 +148,27 @@ defmodule Memory.Game do
   end
 
   def flop(game, _pos) do
-    #Close the face of the card for even clicks
-    if(rem(game.clicks, 2) == 0) do
-      Process.sleep(1000)
-    end
-
-    cards = game.cardlist
-    new_cards = close_face(cards, game.clicks)
-    closed_game = Map.put(game, :cardlist, new_cards)
-
-    new_game = Map.put(closed_game, :score, get_score(closed_game))   
-
-    if(rem(new_game.clicks, 2) == 0) do
-      Map.put(new_game, :previous_card, %{value: "Z", face: false, match: false, pos: 20})
+    if(game.active_cards > 2) do
+       game
     else
-      Map.put(new_game, :previous_card, new_game.previous_card)
+      #Close the face of the card for even clicks
+      game_closed = game
+      if(rem(game.clicks, 2) == 0) do
+        Process.sleep(1000)
+        game_closed = Map.put(game, :active_cards, game.active_cards - 2)
+      end
+
+      cards = game_closed.cardlist
+      new_cards = close_face(cards, game_closed.clicks)
+      closed_game = Map.put(game_closed, :cardlist, new_cards)
+
+      new_game = Map.put(closed_game, :score, get_score(closed_game))   
+
+      if(rem(new_game.clicks, 2) == 0) do
+        Map.put(new_game, :previous_card, %{value: "Z", face: false, match: false, pos: 20})
+      else
+        Map.put(new_game, :previous_card, new_game.previous_card)
+      end
     end
   end
 
