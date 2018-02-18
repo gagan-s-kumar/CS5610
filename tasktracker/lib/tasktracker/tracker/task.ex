@@ -9,7 +9,7 @@ defmodule Tasktracker.Tracker.Task do
     field :description, :string
     field :duration, :integer
     field :title, :string
-    field :owner_id, :id
+    belongs_to :owner, Tasktracker.Logins.Owner
 
     timestamps()
   end
@@ -17,7 +17,7 @@ defmodule Tasktracker.Tracker.Task do
   @doc false
   def changeset(%Task{} = task, attrs) do
     task
-    |> cast(attrs, [:title, :description, :duration, :completed])
-    |> validate_required([:title, :description, :duration, :completed])
+    |> cast(attrs, [:title, :description, :duration, :completed, :owner_id])
+    |> validate_required([:title, :description, :duration, :completed, :owner_id])
   end
 end
