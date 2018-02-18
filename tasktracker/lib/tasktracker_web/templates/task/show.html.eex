@@ -3,6 +3,11 @@
 <ul>
 
   <li>
+    <strong>Owner:</strong>
+    <%= @task.owner.name %>
+  </li>
+
+  <li>
     <strong>Title:</strong>
     <%= @task.title %>
   </li>
