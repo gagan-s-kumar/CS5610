@@ -7,18 +7,18 @@
   </div>
 <% end %>
 
-<h1>Your Feed</h1>
+<h1>All Tasks</h1>
 
 <%= Enum.map @tasks, fn task -> %>
 <div class="row">
   <div class="col">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title"><%= task.owner.name %></h6>
-        <p><%= task.title %></p>
-        <p><%= task.description %></p>
-        <p><%= task.duration %></p>
-        <p><%= task.completed %></p>
+        <div class="col-md-2 col-md-offset-1"><%= task.title %></div>
+        <div class="col-md-2"><%= task.description %></div>
+        <div class="col-md-2"><%= task.duration %></div>
+        <div class="col-md-2"><%= task.completed %></div>
+        <div class="col-md-2"><%= task.owner.name %></div>
       </div>
     </div>
   </div>
