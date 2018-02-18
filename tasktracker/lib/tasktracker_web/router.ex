@@ -4,9 +4,17 @@ defmodule TasktrackerWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug :get_current_owner
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  def get_current_owner(conn, _params) do
+    # TODO: Move this function out of the router module.
+    owner_id = get_session(conn, :owner_id)
+    owner = Tasktracker.Logins.get_owner(owner_id || -1)
+    assign(conn, :current_owner, owner)
   end
 
   pipeline :api do
@@ -19,6 +27,9 @@ defmodule TasktrackerWeb.Router do
     get "/", PageController, :index
     resources "/owners", OwnerController
     resources "/tasks", TaskController
+
+    post "/session", SessionController, :create
+    delete "/session", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.

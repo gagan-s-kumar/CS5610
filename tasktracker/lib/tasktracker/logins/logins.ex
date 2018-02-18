@@ -37,6 +37,15 @@ defmodule Tasktracker.Logins do
   """
   def get_owner!(id), do: Repo.get!(Owner, id)
 
+  # We want a non-bang variant
+  def get_owner(id), do: Repo.get(Owner, id)
+ 
+  # And we want by-email lookup
+  def get_owner_by_email(email) do
+    Repo.get_by(Owner, email: email)
+  end
+
+
   @doc """
   Creates a owner.
 
