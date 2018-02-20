@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, owner_path(@conn, :create)) %>
 
-<%= link "Back", to: owner_path(@conn, :index), class: "btn btn-primary btn-back" %>
+<%= link "See Tasks", to: task_path(@conn, :index), class: "btn btn-primary btn-task" %>

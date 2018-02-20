@@ -1,4 +1,4 @@
-<h2>Show Owner</h2>
+<h1>Show Owner</h1>
 
 <ul>
 
@@ -14,5 +14,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: owner_path(@conn, :edit, @owner) %></span>
-<span><%= link "Back", to: owner_path(@conn, :index) %></span>
+<span><%= link "Edit", to: owner_path(@conn, :edit, @owner), class: "btn btn-primary" %></span>
+<span><%= link "Go to Tasks", to: task_path(@conn, :index), class: "btn btn-primary" %></span>

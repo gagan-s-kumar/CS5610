@@ -5,9 +5,9 @@
     <div class="row heading">
       <div class="col-md-2">Title</div>
       <div class="col-md-2">Description</div>
-      <div class="col-md-1">Duration</div>
+      <div class="col-md-1">Duration in mins</div>
       <div class="col-md-2">Completed</div>
-      <div class="col-md-2">Owner</div>
+      <div class="col-md-2">Owner Name</div>
 
       <div class="col-md-3">Actions</div>
     </div>
@@ -22,8 +22,8 @@
       <div class="col-md-2"><%= task.owner.name %></div>
 
       <div class="col-md-3">
-        <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-primary" %></span>
+        <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-primary" %></span>
         <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </div>
     </div>
@@ -31,5 +31,5 @@
   </tbody>
 </table>
 
-<span><%= link "New Task", to: task_path(@conn, :new) %></span>
-<span><%= link "Check ID", to: owner_path(@conn, :index) %></span>
+<span><%= link "Create Task", to: task_path(@conn, :new), class: "btn btn-primary btn-task" %></span>
+<span><%= link "See Onwers", to: owner_path(@conn, :index), class: "btn btn-primary btn-owner" %></span>

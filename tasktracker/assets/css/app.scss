@@ -5,7 +5,7 @@ h1 { color: green;
      font-weight: bold;
      text-align: center; 
      background-color: yellow; }
-.register { margin-top: 10ps; }
+.register { margin-top: 10px; }
 .col-md-2 { text-align: center;
             margin-top: 10px; }
 .col-md-1 { text-align: center;
@@ -18,3 +18,7 @@ h1 { color: green;
 .entry { font-weight: normal; 
          background-color: lightblue;
          border-style: solid;}
+.btn-task { background-color: green; 
+            float: left }
+.btn-owner { background-color: blue; 
+             float: right }
