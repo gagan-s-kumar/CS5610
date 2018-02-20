@@ -5,7 +5,7 @@
    <div class="col-md-2">Task Owner ID</div>
    <div class="col-md-2">Title</div>
    <div class="col-md-2">Description</div>
-   <div class="col-md-2">Duration</div>
+   <div class="col-md-2">Duration in mins</div>
    <div class="col-md-2">Completed</div>
 </div>
 

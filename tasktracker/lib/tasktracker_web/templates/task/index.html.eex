@@ -32,4 +32,4 @@
 </table>
 
 <span><%= link "Create Task", to: task_path(@conn, :new), class: "btn btn-primary btn-task" %></span>
-<span><%= link "See Onwers", to: owner_path(@conn, :index), class: "btn btn-primary btn-owner" %></span>
+<span><%= link "See Owners", to: owner_path(@conn, :index), class: "btn btn-primary btn-owner" %></span>
