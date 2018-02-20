@@ -1,32 +1,32 @@
-<h2>Listing Tasks</h2>
+<h1>Tasks Board</h1>
 
 <table class="table">
   <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Duration</th>
-      <th>Completed</th>
-      <th>Owner</th>
+    <div class="row heading">
+      <div class="col-md-2">Title</div>
+      <div class="col-md-2">Description</div>
+      <div class="col-md-1">Duration</div>
+      <div class="col-md-2">Completed</div>
+      <div class="col-md-2">Owner</div>
 
-      <th></th>
-    </tr>
+      <div class="col-md-3">Actions</div>
+    </div>
   </thead>
   <tbody>
 <%= for task <- @tasks do %>
-    <tr>
-      <td><%= task.title %></td>
-      <td><%= task.description %></td>
-      <td><%= task.duration %></td>
-      <td><%= task.completed %></td>
-      <td><%= task.owner.name %></td>
+    <div class="row entry">
+      <div class="col-md-2"><%= task.title %></div>
+      <div class="col-md-2"><%= task.description %></div>
+      <div class="col-md-1"><%= task.duration %></div>
+      <div class="col-md-2"><%= task.completed %></div>
+      <div class="col-md-2"><%= task.owner.name %></div>
 
-      <td class="text-right">
+      <div class="col-md-3">
         <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
+      </div>
+    </div>
 <% end %>
   </tbody>
 </table>
