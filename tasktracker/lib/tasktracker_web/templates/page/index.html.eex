@@ -2,15 +2,23 @@
   <div class="col">
 
     <h1>Welcome to the Tasktracker</h1>
+    <h2> Task tracker application lets you do the following things </h2>
+    <li> Register an account </li>
+    <li> Log in / Log out </li>
+    <li> Create Tasks, entering a title and a description </li>
+    <li> Assign tasks to themselves or other users based on ID </li>
+    <li> Track how long they've worked on a task they're assigned to, in 15-minute increments </li>
+    <li> Mark a task as completed </li>
+    <li> See Names, Registered Mail and ID of other users </li>
     <%= form_tag("/session", method: :post) do %>
-      <div class="form-group">
+      <div> </div>
+      <div> </div>
+      <div class="form-group login">
         Enter your registered mail id and click Log in
         <input type="email" name="email" placeholder="Eg:owner1@gmail.com" >
-      </div>
-      <div class="form-group">
         <button class="btn btn-primary">Log in</button>
       </div>
-      <div class="form-group">
+      <div class="form-group register">
         Don't have an account? Register here
         <%= link "Register", to: owner_path(@conn, :new), class: "btn btn-primary btn-register" %>
       </div>
