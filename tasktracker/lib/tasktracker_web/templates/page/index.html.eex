@@ -1,15 +1,18 @@
 <div class="row">
   <div class="col">
 
-    <h1>Log In</h1>
+    <h1>Welcome to the Tasktracker</h1>
     <%= form_tag("/session", method: :post) do %>
       <div class="form-group">
-        Email
-        <input type="email" name="email" placeholder="owner@example.com" >
+        Enter your registered mail id and click Log in
+        <input type="email" name="email" placeholder="Eg:owner1@gmail.com" >
       </div>
       <div class="form-group">
         <button class="btn btn-primary">Log in</button>
-        <%= link "Register", to: owner_path(@conn, :new) %>
+      </div>
+      <div class="form-group">
+        Don't have an account? Register here
+        <%= link "Register", to: owner_path(@conn, :new), class: "btn btn-primary btn-register" %>
       </div>
     <% end %>
 

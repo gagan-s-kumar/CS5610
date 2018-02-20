@@ -25,7 +25,7 @@
 
   <div class="form-group">
     <%= label f, :duration, class: "control-label" %>
-    <%= number_input f, :duration, class: "form-control" %>
+    <%= text_input f, :duration, class: "form-control" %>
     <%= error_tag f, :duration %>
   </div>
 
