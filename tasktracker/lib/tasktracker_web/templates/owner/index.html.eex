@@ -5,6 +5,7 @@
     <tr>
       <th>Email</th>
       <th>Name</th>
+      <th>ID</th>
 
       <th></th>
     </tr>
@@ -14,6 +15,7 @@
     <tr>
       <td><%= owner.email %></td>
       <td><%= owner.name %></td>
+      <td><%= owner.id %></td>
 
       <td class="text-right">
         <span><%= link "Show", to: owner_path(@conn, :show, owner), class: "btn btn-default btn-xs" %></span>
