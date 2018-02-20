@@ -1,33 +1,23 @@
 <h1>Task Details</h1>
 
-<ul>
+<div class="row heading">
+   <div class="col-md-2">Task Owner</div>
+   <div class="col-md-2">Task Owner ID</div>
+   <div class="col-md-2">Title</div>
+   <div class="col-md-2">Description</div>
+   <div class="col-md-2">Duration</div>
+   <div class="col-md-2">Completed</div>
+</div>
 
-  <li>
-    <strong>Owner:</strong>
-    <%= @task.owner.name %>
-  </li>
+<div class="row entry">
+   <div class="col-md-2"><%= @task.owner.name %></div>
+   <div class="col-md-2"><%= @task.owner.id %></div> 
+   <div class="col-md-2"><%= @task.title %></div>  
+   <div class="col-md-2"><%= @task.description %></div>
+   <div class="col-md-2"><%= @task.duration %></div> 
+   <div class="col-md-2"><%= @task.completed %></div>  
+</div>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @task.title %>
-  </li>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @task.description %>
-  </li>
-
-  <li>
-    <strong>Duration:</strong>
-    <%= @task.duration %>
-  </li>
-
-  <li>
-    <strong>Completed:</strong>
-    <%= @task.completed %>
-  </li>
-
-</ul>
 
 <span><%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-primary" %></span>
 <span><%= link "Back", to: task_path(@conn, :index), class: "btn btn-primary" %></span>

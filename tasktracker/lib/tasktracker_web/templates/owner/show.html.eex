@@ -1,18 +1,17 @@
 <h1>Owner Details</h1>
 
-<ul>
+<div class="row heading">
+   <div class="col-md-4">Email</div>
+   <div class="col-md-4">Owner Name</div>
+   <div class="col-md-4">Owner ID</div>
+</div>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @owner.email %>
-  </li>
+<div class="row entry">
+   <div class="col-md-4"><%= @owner.email %></div> 
+   <div class="col-md-4"><%= @owner.name %></div> 
+   <div class="col-md-4"><%= @owner.id %></div> 
+</div>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @owner.name %>
-  </li>
-
-</ul>
 
 <span><%= link "Edit", to: owner_path(@conn, :edit, @owner), class: "btn btn-primary" %></span>
 <span><%= link "Go to Tasks", to: task_path(@conn, :index), class: "btn btn-primary" %></span>
