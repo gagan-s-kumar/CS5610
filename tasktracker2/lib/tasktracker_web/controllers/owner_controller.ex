@@ -5,8 +5,10 @@ defmodule TasktrackerWeb.OwnerController do
   alias Tasktracker.Logins.Owner
 
   def index(conn, _params) do
+    current_owner = conn.assigns[:current_owner]
     owners = Logins.list_owners()
-    render(conn, "index.html", owners: owners)
+    manages = Tasktracker.Tracker.manages_map_for(current_owner.id)
+    render(conn, "index.html", owners: owners, manages: manages)
   end
 
   def new(conn, _params) do

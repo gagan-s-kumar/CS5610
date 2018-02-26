@@ -6,7 +6,8 @@ defmodule TasktrackerWeb.PageController do
   end
 
   def feed(conn, _params) do
-    tasks = Tasktracker.Tracker.list_tasks()
+    tasks = Enum.reverse(Tasktracker.Tracker.feed_tasks_for(conn.assigns[:current_owner]))   
+
     changeset = Tasktracker.Tracker.change_task(%Tasktracker.Tracker.Task{})
     render conn, "feed.html", tasks: tasks, changeset: changeset
   end
