@@ -1,0 +1,23 @@
+<h1>Task Details</h1>
+
+<div class="row heading">
+   <div class="col-md-2">Task Owner</div>
+   <div class="col-md-2">Task Owner ID</div>
+   <div class="col-md-2">Title</div>
+   <div class="col-md-2">Description</div>
+   <div class="col-md-2">Duration in mins</div>
+   <div class="col-md-2">Completed</div>
+</div>
+
+<div class="row entry">
+   <div class="col-md-2"><%= @task.owner.name %></div>
+   <div class="col-md-2"><%= @task.owner.id %></div> 
+   <div class="col-md-2"><%= @task.title %></div>  
+   <div class="col-md-2"><%= @task.description %></div>
+   <div class="col-md-2"><%= @task.duration %></div> 
+   <div class="col-md-2"><%= @task.completed %></div>  
+</div>
+
+
+<span><%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-primary" %></span>
+<span><%= link "Back", to: task_path(@conn, :index), class: "btn btn-primary" %></span>

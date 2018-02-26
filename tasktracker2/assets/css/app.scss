@@ -1,0 +1,24 @@
+/* This file is for your main application css. */
+@import "bootstrap";
+.btn-register { background-color: green; }
+h1 { color: green; 
+     font-weight: bold;
+     text-align: center; 
+     background-color: yellow; }
+.register { margin-top: 10px; }
+.col-md-2 { text-align: center;
+            margin-top: 10px; }
+.col-md-1 { text-align: center;
+            margin-top: 10px; }
+.col-md-3 { text-align: center;
+            margin-top: 10px; }
+.heading { font-weight: bold; 
+           background-color: green;
+           border-style: solid;}
+.entry { font-weight: normal; 
+         background-color: lightblue;
+         border-style: solid;}
+.btn-task { background-color: green; 
+            float: left }
+.btn-owner { background-color: blue; 
+             float: right }

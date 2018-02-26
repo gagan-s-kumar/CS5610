@@ -1,0 +1,5 @@
+<h2>New Task</h2>
+
+<%= render "form.html", Map.put(assigns, :action, task_path(@conn, :create)) %>
+
+<%= link "Back", to: task_path(@conn, :index), class: "btn btn-primary btn-back"  %>

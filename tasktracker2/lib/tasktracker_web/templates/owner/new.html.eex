@@ -1,0 +1,5 @@
+<h2>New Owner</h2>
+
+<%= render "form.html", Map.put(assigns, :action, owner_path(@conn, :create)) %>
+
+<%= link "See Tasks", to: task_path(@conn, :index), class: "btn btn-primary btn-task" %>

@@ -1,0 +1,31 @@
+<h1>All Owners</h1>
+
+<table class="table">
+  <thead>
+    <div class="row heading">
+      <div class="col-md-3">Email</div>
+      <div class="col-md-3">Owner Name</div>
+      <div class="col-md-3">Owner ID</div>
+
+      <div class="col-md-3">Actions</div>
+    </div>
+  </thead>
+  <tbody>
+<%= for owner <- @owners do %>
+    <div class="row entry">
+      <div class="col-md-3"><%= owner.email %></div>
+      <div class="col-md-3"><%= owner.name %></div>
+      <div class="col-md-3"><%= owner.id %></div>
+
+      <div class="col-md-3">
+        <span><%= link "Show", to: owner_path(@conn, :show,owner), class: "btn btn-primary" %></span>
+        <span><%= link "Edit", to: owner_path(@conn, :edit, owner), class: "btn btn-primary" %></span>
+        <span><%= link "Delete", to: owner_path(@conn, :delete, owner), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </div>
+    </div>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "Create Owner", to: owner_path(@conn, :new), class: "btn btn-primary" %></span>
+<span><%= link "Task Board", to: task_path(@conn, :index), class: "btn btn-primary" %></span>
