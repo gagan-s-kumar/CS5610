@@ -47,9 +47,9 @@ defmodule Tasktracker.Logins do
   end
 
   def get_managee(owner_id) do
-   manager = Repo.get_by(Manage, managee_id: owner_id)
-   if manager do
-     get_owner(manager.manager_id)
+   managee = Repo.get_by(Manage, manager_id: owner_id)
+   if managee do
+     get_owner(managee.managee_id)
    end
   end
 
