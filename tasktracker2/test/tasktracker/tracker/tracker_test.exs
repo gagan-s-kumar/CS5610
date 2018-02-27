@@ -188,4 +188,128 @@ defmodule Tasktracker.TrackerTest do
       assert %Ecto.Changeset{} = Tracker.change_timeblock(timeblock)
     end
   end
+
+  describe "timeblocks" do
+    alias Tasktracker.Tracker.Timeblock
+
+    @valid_attrs %{end_time: ~T[14:00:00.000000], start_time: ~T[14:00:00.000000]}
+    @update_attrs %{end_time: ~T[15:01:01.000000], start_time: ~T[15:01:01.000000]}
+    @invalid_attrs %{end_time: nil, start_time: nil}
+
+    def timeblock_fixture(attrs \\ %{}) do
+      {:ok, timeblock} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Tracker.create_timeblock()
+
+      timeblock
+    end
+
+    test "list_timeblocks/0 returns all timeblocks" do
+      timeblock = timeblock_fixture()
+      assert Tracker.list_timeblocks() == [timeblock]
+    end
+
+    test "get_timeblock!/1 returns the timeblock with given id" do
+      timeblock = timeblock_fixture()
+      assert Tracker.get_timeblock!(timeblock.id) == timeblock
+    end
+
+    test "create_timeblock/1 with valid data creates a timeblock" do
+      assert {:ok, %Timeblock{} = timeblock} = Tracker.create_timeblock(@valid_attrs)
+      assert timeblock.end_time == ~T[14:00:00.000000]
+      assert timeblock.start_time == ~T[14:00:00.000000]
+    end
+
+    test "create_timeblock/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Tracker.create_timeblock(@invalid_attrs)
+    end
+
+    test "update_timeblock/2 with valid data updates the timeblock" do
+      timeblock = timeblock_fixture()
+      assert {:ok, timeblock} = Tracker.update_timeblock(timeblock, @update_attrs)
+      assert %Timeblock{} = timeblock
+      assert timeblock.end_time == ~T[15:01:01.000000]
+      assert timeblock.start_time == ~T[15:01:01.000000]
+    end
+
+    test "update_timeblock/2 with invalid data returns error changeset" do
+      timeblock = timeblock_fixture()
+      assert {:error, %Ecto.Changeset{}} = Tracker.update_timeblock(timeblock, @invalid_attrs)
+      assert timeblock == Tracker.get_timeblock!(timeblock.id)
+    end
+
+    test "delete_timeblock/1 deletes the timeblock" do
+      timeblock = timeblock_fixture()
+      assert {:ok, %Timeblock{}} = Tracker.delete_timeblock(timeblock)
+      assert_raise Ecto.NoResultsError, fn -> Tracker.get_timeblock!(timeblock.id) end
+    end
+
+    test "change_timeblock/1 returns a timeblock changeset" do
+      timeblock = timeblock_fixture()
+      assert %Ecto.Changeset{} = Tracker.change_timeblock(timeblock)
+    end
+  end
+
+  describe "timesblocks" do
+    alias Tasktracker.Tracker.Timesblock
+
+    @valid_attrs %{end_time: ~T[14:00:00.000000], start_time: ~T[14:00:00.000000]}
+    @update_attrs %{end_time: ~T[15:01:01.000000], start_time: ~T[15:01:01.000000]}
+    @invalid_attrs %{end_time: nil, start_time: nil}
+
+    def timesblock_fixture(attrs \\ %{}) do
+      {:ok, timesblock} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Tracker.create_timesblock()
+
+      timesblock
+    end
+
+    test "list_timesblocks/0 returns all timesblocks" do
+      timesblock = timesblock_fixture()
+      assert Tracker.list_timesblocks() == [timesblock]
+    end
+
+    test "get_timesblock!/1 returns the timesblock with given id" do
+      timesblock = timesblock_fixture()
+      assert Tracker.get_timesblock!(timesblock.id) == timesblock
+    end
+
+    test "create_timesblock/1 with valid data creates a timesblock" do
+      assert {:ok, %Timesblock{} = timesblock} = Tracker.create_timesblock(@valid_attrs)
+      assert timesblock.end_time == ~T[14:00:00.000000]
+      assert timesblock.start_time == ~T[14:00:00.000000]
+    end
+
+    test "create_timesblock/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Tracker.create_timesblock(@invalid_attrs)
+    end
+
+    test "update_timesblock/2 with valid data updates the timesblock" do
+      timesblock = timesblock_fixture()
+      assert {:ok, timesblock} = Tracker.update_timesblock(timesblock, @update_attrs)
+      assert %Timesblock{} = timesblock
+      assert timesblock.end_time == ~T[15:01:01.000000]
+      assert timesblock.start_time == ~T[15:01:01.000000]
+    end
+
+    test "update_timesblock/2 with invalid data returns error changeset" do
+      timesblock = timesblock_fixture()
+      assert {:error, %Ecto.Changeset{}} = Tracker.update_timesblock(timesblock, @invalid_attrs)
+      assert timesblock == Tracker.get_timesblock!(timesblock.id)
+    end
+
+    test "delete_timesblock/1 deletes the timesblock" do
+      timesblock = timesblock_fixture()
+      assert {:ok, %Timesblock{}} = Tracker.delete_timesblock(timesblock)
+      assert_raise Ecto.NoResultsError, fn -> Tracker.get_timesblock!(timesblock.id) end
+    end
+
+    test "change_timesblock/1 returns a timesblock changeset" do
+      timesblock = timesblock_fixture()
+      assert %Ecto.Changeset{} = Tracker.change_timesblock(timesblock)
+    end
+  end
 end

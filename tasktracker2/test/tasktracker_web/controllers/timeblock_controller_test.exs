@@ -4,8 +4,8 @@ defmodule TasktrackerWeb.TimeblockControllerTest do
   alias Tasktracker.Tracker
   alias Tasktracker.Tracker.Timeblock
 
-  @create_attrs %{end_time: "some end_time", start_time: "some start_time"}
-  @update_attrs %{end_time: "some updated end_time", start_time: "some updated start_time"}
+  @create_attrs %{end_time: ~T[14:00:00.000000], start_time: ~T[14:00:00.000000]}
+  @update_attrs %{end_time: ~T[15:01:01.000000], start_time: ~T[15:01:01.000000]}
   @invalid_attrs %{end_time: nil, start_time: nil}
 
   def fixture(:timeblock) do
@@ -32,8 +32,8 @@ defmodule TasktrackerWeb.TimeblockControllerTest do
       conn = get conn, timeblock_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
-        "end_time" => "some end_time",
-        "start_time" => "some start_time"}
+        "end_time" => ~T[14:00:00.000000],
+        "start_time" => ~T[14:00:00.000000]}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -52,8 +52,8 @@ defmodule TasktrackerWeb.TimeblockControllerTest do
       conn = get conn, timeblock_path(conn, :show, id)
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
-        "end_time" => "some updated end_time",
-        "start_time" => "some updated start_time"}
+        "end_time" => ~T[15:01:01.000000],
+        "start_time" => ~T[15:01:01.000000]}
     end
 
     test "renders errors when data is invalid", %{conn: conn, timeblock: timeblock} do

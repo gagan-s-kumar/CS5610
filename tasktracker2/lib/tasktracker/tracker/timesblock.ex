@@ -1,10 +1,10 @@
-defmodule Tasktracker.Tracker.Timeblock do
+defmodule Tasktracker.Tracker.Timesblock do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Tasktracker.Tracker.Timeblock
+  alias Tasktracker.Tracker.Timesblock
 
 
-  schema "timeblocks" do
+  schema "timesblocks" do
     field :end_time, :time
     field :start_time, :time
     field :task_id, :id
@@ -13,8 +13,8 @@ defmodule Tasktracker.Tracker.Timeblock do
   end
 
   @doc false
-  def changeset(%Timeblock{} = timeblock, attrs) do
-    timeblock
+  def changeset(%Timesblock{} = timesblock, attrs) do
+    timesblock
     |> cast(attrs, [:start_time, :end_time])
     |> validate_required([:start_time, :end_time])
   end

@@ -310,4 +310,100 @@ defmodule Tasktracker.Tracker do
   def change_timeblock(%Timeblock{} = timeblock) do
     Timeblock.changeset(timeblock, %{})
   end
+
+  alias Tasktracker.Tracker.Timesblock
+
+  @doc """
+  Returns the list of timesblocks.
+
+  ## Examples
+
+      iex> list_timesblocks()
+      [%Timesblock{}, ...]
+
+  """
+  def list_timesblocks do
+    Repo.all(Timesblock)
+  end
+
+  @doc """
+  Gets a single timesblock.
+
+  Raises `Ecto.NoResultsError` if the Timesblock does not exist.
+
+  ## Examples
+
+      iex> get_timesblock!(123)
+      %Timesblock{}
+
+      iex> get_timesblock!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_timesblock!(id), do: Repo.get!(Timesblock, id)
+
+  @doc """
+  Creates a timesblock.
+
+  ## Examples
+
+      iex> create_timesblock(%{field: value})
+      {:ok, %Timesblock{}}
+
+      iex> create_timesblock(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_timesblock(attrs \\ %{}) do
+    %Timesblock{}
+    |> Timesblock.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a timesblock.
+
+  ## Examples
+
+      iex> update_timesblock(timesblock, %{field: new_value})
+      {:ok, %Timesblock{}}
+
+      iex> update_timesblock(timesblock, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_timesblock(%Timesblock{} = timesblock, attrs) do
+    timesblock
+    |> Timesblock.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Timesblock.
+
+  ## Examples
+
+      iex> delete_timesblock(timesblock)
+      {:ok, %Timesblock{}}
+
+      iex> delete_timesblock(timesblock)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_timesblock(%Timesblock{} = timesblock) do
+    Repo.delete(timesblock)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking timesblock changes.
+
+  ## Examples
+
+      iex> change_timesblock(timesblock)
+      %Ecto.Changeset{source: %Timesblock{}}
+
+  """
+  def change_timesblock(%Timesblock{} = timesblock) do
+    Timesblock.changeset(timesblock, %{})
+  end
 end
