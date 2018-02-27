@@ -1,26 +1,20 @@
-<%= if @current_owner do %>
-  <div class="row">
-    <div class="col">
-      <%= render TasktrackerWeb.TaskView, "form.html",
-          Map.put(assigns, :action, task_path(@conn, :create)) %>
-    </div>
-  </div>
-<% end %>
+<h1>Your Managees Tasks Status</h1>
 
-<h1>All Tasks</h1>
+<div class="row heading">
+      <div class="col-md-2 col-md-offset-1">Title</div>
+      <div class="col-md-2">Description</div>
+      <div class="col-md-2">Duration in mins</div>
+      <div class="col-md-2">Completed</div>
+      <div class="col-md-2">Owner Name</div>
+
+</div>
 
 <%= Enum.map @tasks, fn task -> %>
-<div class="row">
-  <div class="col">
-    <div class="card">
-      <div class="card-body">
-        <div class="col-md-2 col-md-offset-1"><%= task.title %></div>
-        <div class="col-md-2"><%= task.description %></div>
-        <div class="col-md-2"><%= task.duration %></div>
-        <div class="col-md-2"><%= task.completed %></div>
-        <div class="col-md-2"><%= task.owner.name %></div>
-      </div>
-    </div>
+  <div class="row entry">
+    <div class="col-md-2 col-md-offset-1"><%= task.title %></div>
+    <div class="col-md-2"><%= task.description %></div>
+    <div class="col-md-2"><%= task.duration %></div>
+    <div class="col-md-2"><%= task.completed %></div>
+    <div class="col-md-2"><%= task.owner.name %></div>
   </div>
-</div>
 <% end %>

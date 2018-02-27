@@ -8,6 +8,8 @@ defmodule Tasktracker.Logins do
 
   alias Tasktracker.Logins.Owner
 
+  alias Tasktracker.Tracker.Manage
+
   @doc """
   Returns the list of owners.
 
@@ -37,6 +39,20 @@ defmodule Tasktracker.Logins do
   """
   def get_owner!(id), do: Repo.get!(Owner, id)
 
+  def get_manager(owner_id) do
+   manager = Repo.get_by(Manage, managee_id: owner_id)
+   if manager do
+     get_owner(manager.manager_id)
+   end
+  end
+
+  def get_managee(owner_id) do
+   manager = Repo.get_by(Manage, managee_id: owner_id)
+   if manager do
+     get_owner(manager.manager_id)
+   end
+  end
+
   # We want a non-bang variant
   def get_owner(id), do: Repo.get(Owner, id)
  
@@ -44,7 +60,6 @@ defmodule Tasktracker.Logins do
   def get_owner_by_email(email) do
     Repo.get_by(Owner, email: email)
   end
-
 
   @doc """
   Creates a owner.

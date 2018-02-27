@@ -1,15 +1,19 @@
 <h1>Owner Details</h1>
 
 <div class="row heading">
-   <div class="col-md-4">Email</div>
-   <div class="col-md-4">Owner Name</div>
-   <div class="col-md-4">Owner ID</div>
+   <div class="col-md-3">Email</div>
+   <div class="col-md-2">Owner Name</div>
+   <div class="col-md-1">Owner ID</div>
+   <div class="col-md-3">Manager</div>
+   <div class="col-md-3">Managee</div>
 </div>
 
 <div class="row entry">
-   <div class="col-md-4"><%= @owner.email %></div> 
-   <div class="col-md-4"><%= @owner.name %></div> 
-   <div class="col-md-4"><%= @owner.id %></div> 
+   <div class="col-md-3"><%= @owner.email %></div> 
+   <div class="col-md-2"><%= @owner.name %></div> 
+   <div class="col-md-1"><%= @owner.id %></div> 
+   <div class="col-md-3"><%= @manager.name %></div>
+   <div class="col-md-3"><%= @managee.name %></div>
 </div>
 
 
