@@ -41,16 +41,17 @@ defmodule Tasktracker.Logins do
 
   def get_manager(owner_id) do
    manager = Repo.get_by(Manage, managee_id: owner_id)
+   # Null check not happening, TODO
    if manager do
      get_owner(manager.manager_id)
    end
   end
 
-  def get_managee(owner_id) do
-   managee = Repo.get_by(Manage, manager_id: owner_id)
-   if managee do
-     get_owner(managee.managee_id)
-   end
+  def get_managees(owner_id) do
+   Repo.all(from m in Manage,
+      where: m.manager_id == ^owner_id)
+    |> Enum.map(&({&1.managee_id, &1.id}))
+    |> Enum.into([])
   end
 
   # We want a non-bang variant

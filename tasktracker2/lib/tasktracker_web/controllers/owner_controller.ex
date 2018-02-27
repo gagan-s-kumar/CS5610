@@ -30,8 +30,8 @@ defmodule TasktrackerWeb.OwnerController do
   def show(conn, %{"id" => id}) do
     owner = Logins.get_owner!(id)
     manager = Logins.get_manager(id)
-    managee = Logins.get_managee(id)
-    render(conn, "show.html", owner: owner, manager: manager, managee: managee)
+    managees = Logins.get_managees(id)
+    render(conn, "show.html", owner: owner, manager: manager, managees: managees)
   end
 
   def edit(conn, %{"id" => id}) do

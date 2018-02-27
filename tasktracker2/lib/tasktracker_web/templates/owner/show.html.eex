@@ -12,8 +12,22 @@
    <div class="col-md-3"><%= @owner.email %></div> 
    <div class="col-md-2"><%= @owner.name %></div> 
    <div class="col-md-1"><%= @owner.id %></div> 
-   <div class="col-md-3"><%= @manager.name %></div>
-   <div class="col-md-3"><%= @managee.name %></div>
+   <div class="col-md-3">
+     <%= if @manager do %>
+       <%= @manager.name %>
+     <% else %>
+       No Manager
+     <% end %>
+   </div>
+   <div class="col-md-3">
+     <%= if @managees do %>
+       <%= for managee <- @managees do %>
+          <p>@managee.name<p>
+       <% end %>
+     <% else %>
+       No Managees
+     <% end %>
+   </div>
 </div>
 
 
