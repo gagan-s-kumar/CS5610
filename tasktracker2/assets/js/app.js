@@ -34,6 +34,19 @@ function update_buttons() {
   });
 }
 
+function update_buttons2() {
+  $('.stop-button').each( (_, bb) => {
+    let task_id = $(bb).data('task-id');
+    let timesblock = $(bb).data('timesblock');
+    if (timesblock != "") {
+      $(bb).text("Timesblock2");
+    }
+    else {
+      $(bb).text("Timesblock");
+    }
+  });
+}
+
 function set_button(owner_id, value) {
   $('.manage-button').each( (_, bb) => {
     if (owner_id == $(bb).data('owner-id')) {
@@ -41,6 +54,15 @@ function set_button(owner_id, value) {
     }
   });
   update_buttons();
+}
+
+function set_button2(task_id, value) {
+  $('.stop-button').each( (_, bb) => {
+    if (task_id == $(bb).data('task-id')) {
+      $(bb).data('timesblock', value);
+    }
+  });
+  update_buttons2();
 }
 
 function manage(owner_id) {
@@ -60,6 +82,23 @@ function manage(owner_id) {
   });
 }
 
+function timesblock(task_id) {
+  let text = JSON.stringify({
+    timesblock: {
+        start_time: "00:00:00",
+        end_time: "24:00:00"
+      },
+  });
+
+  $.ajax(timesblock_path, {
+    method: "post",
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+    data: text,
+    success: (resp) => { set_button2(task_id, resp.data.id); },
+  });
+}
+
 function unmanage(owner_id, manage_id) {
   $.ajax(manage_path + "/" + manage_id, {
     method: "delete",
@@ -67,6 +106,16 @@ function unmanage(owner_id, manage_id) {
     contentType: "application/json; charset=UTF-8",
     data: "",
     success: () => { set_button(owner_id, ""); },
+  });
+}
+
+function untimesblock(task_id, timesblock_id) {
+  $.ajax(timesblock_path + "/" + timesblock_id, {
+    method: "delete",
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+    data: "",
+    success: () => { set_button2(task_id, ""); },
   });
 }
 
@@ -83,6 +132,19 @@ function manage_click(ev) {
   }
 }
 
+function timesblock_click(ev) {
+  let btn = $(ev.target);
+  let timesblock_id = btn.data('timesblock');
+  let task_id = btn.data('task-id');
+
+  if (timesblock_id != "") {
+    untimesblock(task_id, timesblock_id);
+  }
+  else {
+    timesblock(task_id);
+  }
+}
+
 function init_manage() {
   if (!$('.manage-button')) {
     return;
@@ -93,4 +155,15 @@ function init_manage() {
   update_buttons();
 }
 
+function init_timesblock() {
+  if (!$('.stop-button')) {
+    return;
+  }
+
+  $(".stop-button").click(timesblock_click);
+
+  update_buttons2();
+}
+
 $(init_manage);
+$(init_timesblock);

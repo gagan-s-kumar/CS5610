@@ -1,5 +1,10 @@
 <h1>Task Details</h1>
 
+<script>
+ window.timesblock_path = "<%= timesblock_path(@conn, :index) %>";
+ window.current_task_id = "<%= @task.id %>";
+</script>
+
 <div class="row heading">
    <div class="col-md-2">Task Owner</div>
    <div class="col-md-2">Task Owner ID</div>
@@ -16,6 +21,13 @@
    <div class="col-md-2"><%= @task.description %></div>
    <div class="col-md-2"><%= @task.duration %></div> 
    <div class="col-md-2"><%= @task.completed %></div>  
+   <div class="col-md-1">
+        <button class="stop-button btn btn-secondary"
+                data-task-id="<%= @task.id %>"
+                data-timesblock="<%= @timesblocks[@task.id] %>">
+          Timesblock
+        </button>
+   </div>
 </div>
 
 

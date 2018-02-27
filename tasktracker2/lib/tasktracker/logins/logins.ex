@@ -47,6 +47,14 @@ defmodule Tasktracker.Logins do
    end
   end
 
+  def get_managees1(owner_id) do
+   managee = Repo.get_by(Manage, manager_id: owner_id)
+   # Null check not happening, TODO
+   if managee do
+     [get_owner(managee.managee_id)]
+   end
+  end
+
   def get_managees(owner_id) do
    Repo.all(from m in Manage,
       where: m.manager_id == ^owner_id)
