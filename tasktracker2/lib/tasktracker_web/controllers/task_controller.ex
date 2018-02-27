@@ -3,6 +3,7 @@ defmodule TasktrackerWeb.TaskController do
 
   alias Tasktracker.Tracker
   alias Tasktracker.Tracker.Task
+  alias Tasktracker.Login
 
   def index(conn, _params) do
     tasks = Tracker.list_tasks()
@@ -15,13 +16,14 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
+    owners = Login.list_owners()
     case Tracker.create_task(task_params) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
         |> redirect(to: task_path(conn, :show, task))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, owners: owners)
     end
   end
 

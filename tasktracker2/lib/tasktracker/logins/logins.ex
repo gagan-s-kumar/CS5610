@@ -51,7 +51,6 @@ defmodule Tasktracker.Logins do
    Repo.all(from m in Manage,
       where: m.manager_id == ^owner_id)
     |> Enum.map(&({&1.managee_id, &1.id}))
-    |> Enum.into([])
   end
 
   # We want a non-bang variant
