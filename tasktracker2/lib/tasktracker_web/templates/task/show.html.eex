@@ -23,7 +23,7 @@
    <div class="col-md-2"><%= @task.completed %></div>  
    <div class="col-md-1">
         <button class="stop-button btn btn-secondary">
-          Timesblock
+          Start
         </button>
    </div>
 </div>
