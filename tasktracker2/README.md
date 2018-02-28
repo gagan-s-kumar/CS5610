@@ -57,6 +57,10 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
                     being created, it is very unlikely that it is already completed as well. However, the user
                     can override the default value and check the box to mark the field as completed
 
+  - Manage table
+  * I have created Many-to-Many relationship between Managers and Underlings. This is because a person's
+    progress can be tracked my multiple people who are authorized as managers
+
   - Other Decisions:
     
     - I decided to delete the tasks associated with the owner deletion since owner_id in Task Table can't be null.
