@@ -3,7 +3,7 @@ defmodule TasktrackerWeb.TaskController do
 
   alias Tasktracker.Tracker
   alias Tasktracker.Tracker.Task
-  alias Tasktracker.Login
+  alias Tasktracker.Logins
 
   def index(conn, _params) do
     tasks = Tracker.list_tasks()
@@ -16,19 +16,24 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
-    #owners = Login.list_owners()
-    #current_owner = conn.assigns[:current_owner]
+    #owners = Logins.list_owners()
+    current_owner = conn.assigns[:current_owner]
     #IO.inspect("Printing in create task")
     #IO.inspect current_owner
-    #managees = Logins.get_managees(current_owner.id)
-    #managees = Enum.map(managees, fn(x) -> Logins.get_owner!(elem(x, 0)) end)
+    managees = Logins.get_managees(current_owner.id)
+    managees = Enum.map(managees, fn(x) -> Logins.get_owner!(elem(x, 0)) end)
+    IO.inspect("Printing managees")
+    IO.inspect managees
+    managees_ids = Enum.map(managees, fn(x) -> x.id end)
+    IO.inspect("Printing managees_ids")
+    IO.inspect managees_ids
     case Tracker.create_task(task_params) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
         |> redirect(to: task_path(conn, :show, task))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, managees_ids: managees_ids)
     end
   end
 
