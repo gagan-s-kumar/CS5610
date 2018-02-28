@@ -22,9 +22,7 @@
    <div class="col-md-2"><%= @task.duration %></div> 
    <div class="col-md-2"><%= @task.completed %></div>  
    <div class="col-md-1">
-        <button class="stop-button btn btn-secondary"
-                data-task-id="<%= @task.id %>"
-                data-timesblock="<%= @timesblocks[@task.id] %>">
+        <button class="stop-button btn btn-secondary">
           Timesblock
         </button>
    </div>

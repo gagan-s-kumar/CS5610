@@ -10,8 +10,6 @@ defmodule Tasktracker.Tracker.Task do
     field :duration, :integer
     field :title, :string
     belongs_to :owner, Tasktracker.Logins.Owner
-    has_many :timesblock_timesblocks, Timesblock, foreign_key: :task_id
-    has_many :timesblock, through: [:timesblock_timesblocks, :task_id]
 
     timestamps()
   end

@@ -215,13 +215,6 @@ defmodule Tasktracker.Tracker do
     |> Enum.into(%{})
   end
 
-  def timesblocks_map_for(task_id) do
-    Repo.all(from t in Timesblock,
-      where: t.task_id == ^task_id)
-    |> Enum.map(&({&1.task_id, &1.id}))
-    |> Enum.into(%{})
-  end
-
   alias Tasktracker.Tracker.Timeblock
 
   @doc """
@@ -413,4 +406,11 @@ defmodule Tasktracker.Tracker do
   def change_timesblock(%Timesblock{} = timesblock) do
     Timesblock.changeset(timesblock, %{})
   end
+
+  #def timesblocks_map_for(task_id) do
+  #  Repo.all(from t in Timesblock,
+  #    where: t.task_id == ^task_id)
+  #  |> Enum.map(&({&1.task_id, &1.id}))
+  #  |> Enum.into(%{})
+  #end
 end

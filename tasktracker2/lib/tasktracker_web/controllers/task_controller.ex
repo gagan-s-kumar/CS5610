@@ -16,21 +16,28 @@ defmodule TasktrackerWeb.TaskController do
   end
 
   def create(conn, %{"task" => task_params}) do
-    owners = Login.list_owners()
+    #owners = Login.list_owners()
+    #current_owner = conn.assigns[:current_owner]
+    #IO.inspect("Printing in create task")
+    #IO.inspect current_owner
+    #managees = Logins.get_managees(current_owner.id)
+    #managees = Enum.map(managees, fn(x) -> Logins.get_owner!(elem(x, 0)) end)
     case Tracker.create_task(task_params) do
       {:ok, task} ->
         conn
         |> put_flash(:info, "Task created successfully.")
         |> redirect(to: task_path(conn, :show, task))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset, owners: owners)
+        render(conn, "new.html", changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
     task = Tracker.get_task!(id)
-    timesblocks = Tasktracker.Tracker.timesblocks_map_for(task.id)
-    render(conn, "show.html", task: task, timesblocks: timesblocks)
+    current_owner = conn.assigns[:current_owner]
+    IO.inspect("Printing in show task")
+    #timesblocks = Tasktracker.Tracker.timesblocks_map_for(task.id)
+    render(conn, "show.html", task: task)
   end
 
   def edit(conn, %{"id" => id}) do
