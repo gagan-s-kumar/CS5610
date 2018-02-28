@@ -29,13 +29,14 @@ defmodule TasktrackerWeb.OwnerController do
 
   def show(conn, %{"id" => id}) do
     owner = Logins.get_owner!(id)
-    manager = Logins.get_manager(id)
+    manager = Logins.get_managers(id)
     managees = Logins.get_managees(id)
     IO.inspect("PRINT")
-    IO.inspect managees
+    IO.inspect manager
+    manager = Enum.map(manager, fn(x) -> Logins.get_owner!(elem(x, 0)) end)
     managees = Enum.map(managees, fn(x) -> Logins.get_owner!(elem(x, 0)) end)
     IO.inspect("PRINT2")
-    IO.inspect managees
+    IO.inspect manager
     render(conn, "show.html", owner: owner, manager: manager, managees: managees)
   end
 

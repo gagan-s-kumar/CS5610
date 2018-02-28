@@ -55,6 +55,12 @@ defmodule Tasktracker.Logins do
    end
   end
 
+  def get_managers(owner_id) do
+   Repo.all(from m in Manage,
+      where: m.managee_id == ^owner_id)
+    |> Enum.map(&({&1.manager_id, &1.id}))
+  end
+
   def get_managees(owner_id) do
    Repo.all(from m in Manage,
       where: m.manager_id == ^owner_id)
