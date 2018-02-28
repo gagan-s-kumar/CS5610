@@ -1,5 +1,11 @@
 # Tasktracker
 
+# Attribution
+I have referred to Nat's Notes for this assignment. The URL for the notes is
+http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/notes/14-assoc-and-ajax/notes.html
+
+Though I just referred his notes, all the code is written by myself alone.
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
