@@ -16,7 +16,7 @@ defmodule Taskspa.Jobs.Job do
   @doc false
   def changeset(job, attrs) do
     job
-    |> cast(attrs, [:title, :description, :duration, :completed])
-    |> validate_required([:title, :description, :duration, :completed])
+    |> cast(attrs, [:title, :description, :duration, :completed, :worker_id])
+    |> validate_required([:title, :description, :duration, :completed, :worker_id])
   end
 end

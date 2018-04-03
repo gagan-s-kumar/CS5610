@@ -36,7 +36,10 @@ defmodule Taskspa.Jobs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_job!(id), do: Repo.get!(Job, id)
+  def get_job!(id) do
+    Repo.get!(Job, id)
+    |> Repo.preload(:worker)
+  end
 
   @doc """
   Creates a job.
@@ -51,9 +54,10 @@ defmodule Taskspa.Jobs do
 
   """
   def create_job(attrs \\ %{}) do
-    %Job{}
+    {:ok, job} = %Job{}
     |> Job.changeset(attrs)
     |> Repo.insert()
+    {:ok, Repo.preload(job, :worker)}
   end
 
   @doc """

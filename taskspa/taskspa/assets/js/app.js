@@ -19,6 +19,12 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
-import taskspa_init from "./cs/taskspa";
-$(taskspa_init);
+import store from './store';
+import api from './api';
 
+import taskspa_init from "./cs/taskspa";
+$(function() {
+  api.request_jobs();
+  api.request_workers();
+  taskspa_init(store);
+});
