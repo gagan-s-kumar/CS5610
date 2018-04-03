@@ -9,6 +9,7 @@ export default function Task(params) {
         <p>Created by <b>{ task.user.name }</b></p>
         <p>{ task.title }</p>
         <p>{ task.description }</p>
+        <p>{ task.duration }</p>
       </div>
     </CardBody>
   </Card>;

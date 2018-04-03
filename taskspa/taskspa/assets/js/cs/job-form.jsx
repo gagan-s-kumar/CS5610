@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 
-export default function TaskForm(params) {
-  let users = _.map(params.users, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
+export default function JobForm(params) {
+  let workers = _.map(params.workers, (uu) => <option key={uu.id} value={uu.id}>{uu.name}</option>);
   return <div style={{padding: "4ex"}}>
-    <h2>New Task</h2>
+    <h2>New Job</h2>
     <FormGroup>
-      <Label for="user_id">User</Label>
-      <Input type="select" name="user_id">
-        { users }
+      <Label for="worker_id">Worker</Label>
+      <Input type="select" name="worker_id">
+        { workers }
       </Input>
     </FormGroup>
     <FormGroup>
@@ -19,7 +19,6 @@ export default function TaskForm(params) {
       <Label for="duration">Duration</Label>
       <Input type="number" name="duration" />
     </FormGroup>
-    <Button onClick={() => alert("TODO: Manage State")}>Task</Button>
+    <Button onClick={() => alert("TODO: Manage State")}>Job</Button>
   </div>;
 }
-

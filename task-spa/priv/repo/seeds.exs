@@ -22,11 +22,12 @@ defmodule Seeds do
     d = Repo.insert!(%User{ email: "dave@gmail.com", name: "dave" })
 
     Repo.delete_all(Task)
-    Repo.insert!(%Task{ user_id: a.id, title: "Hi, I'm Alice", description: "Alice's job", duration: 15, completed: false })
-    Repo.insert!(%Task{ user_id: b.id, title: "Hi, I'm Bob", description: "Bob's job", duration: 15, completed: true })
-    Repo.insert!(%Task{ user_id: b.id, title: "Hi, I'm Bob", description: "Bob's job second", duration: 30, completed: false })
-    Repo.insert!(%Task{ user_id: c.id, title: "Hi, I'm Carol", description: "Carol's job", duration: 15, completed: false })
-    Repo.insert!(%Task{ user_id: d.id, title: "Hi, I'm Dave", description: "Dave's job", duration: 45, completed: false })
+    Repo.insert!(%Task{ user_id: a.id, title: "Alice", description: "Alice's job", duration: 15, completed: false })
+    Repo.insert!(%Task{ user_id: b.id, title: "Bob", description: "Bob's job", duration: 15, completed: true })
+    Repo.insert!(%Task{ user_id: b.id, title: "Bob", description: "Bob's job second", duration: 30, completed: false })
+    Repo.insert!(%Task{ user_id: b.id, title: "Bob", description: "Bob's job third", duration: 15, completed: true })
+    Repo.insert!(%Task{ user_id: c.id, title: "Carol", description: "Carol's job", duration: 15, completed: false })
+    Repo.insert!(%Task{ user_id: d.id, title: "Dave", description: "Dave's job", duration: 45, completed: false })
   end
 end
 
