@@ -20,6 +20,7 @@ defmodule TaskspaWeb.Router do
     get "/workers", PageController, :index
     get "/jobs", PageController, :index
     get "/workers/:id", PageController, :index
+    get "/jobs/:id", PageController, :index
   end
 
   # Other scopes may use custom stacks.

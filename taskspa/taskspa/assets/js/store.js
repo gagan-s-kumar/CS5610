@@ -20,6 +20,8 @@ function jobs(state = [], action) {
     return [...action.jobs];
   case 'ADD_JOB':
     return [action.job, ...state];
+  case 'EDIT_JOB':
+    return [action.job, ...state];
   default:
     return state;
   }

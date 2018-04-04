@@ -44,6 +44,21 @@ class TheServer {
     });
   }
 
+  edit_job(data) {
+    $.ajax("/api/v1/jobs", {
+      method: "put",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ job: data }),
+      success: (resp) => {
+        store.dispatch({
+          type: 'EDIT_JOB',
+          job: resp.data,
+        });
+      },
+    });
+  }
+
   submit_worker(data) {
     $.ajax("/api/v1/workers", {
       method: "post",
