@@ -14,10 +14,11 @@ export default function Job(params) {
   return <Card>
     <CardBody>
       <div>
-        <p>Posted by <b>{ job.worker.name }</b></p>
-        <p>{ job.title }</p>
-        <p>{ job.description }</p>
-        <p>{ job.duration }</p>
+        <p>Assigned to <b>{ job.worker.name }</b></p>
+        <p>Title          { job.title }</p>
+        <p>Description    { job.description }</p>
+        <p>Duration       { job.duration }</p>
+        <p>Completed      { job.completed ? "Completed" : "No Completed"}</p>
       </div>
       <p><Link to={"/jobs/" + job.id}>Edit</Link></p>
     </CardBody>

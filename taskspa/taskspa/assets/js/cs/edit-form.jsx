@@ -27,6 +27,7 @@ function EditForm(params) {
 
   function edit(ev) {
     api.edit_job(props.form);
+    console.log("Callin edit");
     console.log(props.form);
   }
 
@@ -44,18 +45,22 @@ function EditForm(params) {
       <Input type="select" name="worker_id" value={props.form.worker_id} onChange={update}>
         { workers }
       </Input>
+      <div class="old"> Current Assignee: { job.worker.name }</div>
     </FormGroup>
     <FormGroup>
       <Label for="title">Title</Label>
       <Input type="textarea" name="title" value={props.form.title} onChange={update} />
+      <div class="old"> Current Title: { job.title }</div>
     </FormGroup>
     <FormGroup>
       <Label for="description">Description</Label>
       <Input type="textarea" name="description" value={props.form.description} onChange={update} />
+      <div class="old"> Current Description: { job.description }</div>
     </FormGroup>
     <FormGroup>
       <Label for="duration">Duration</Label>
       <Input type="number" name="duration" value={props.form.duration} onChange={update} />
+      <div class="old"> Current Duration: { job.duration }</div>
     </FormGroup>
     <Button onClick={edit} color="primary">Edit</Button> &nbsp;
     <Button onClick={clear}>Clear</Button>
