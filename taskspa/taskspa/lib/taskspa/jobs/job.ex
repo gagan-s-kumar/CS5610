@@ -18,5 +18,13 @@ defmodule Taskspa.Jobs.Job do
     job
     |> cast(attrs, [:title, :description, :duration, :completed, :worker_id])
     |> validate_required([:title, :description, :duration, :completed, :worker_id])
+    |> validate_change(:duration, fn :duration, duration ->
+			if rem(duration, 15) == 0 do
+				[]
+			else
+				[duration: "Duration should be 15 multiple"]
+			end
+                     end)
+    
   end
 end
