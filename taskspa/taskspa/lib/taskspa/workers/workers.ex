@@ -37,6 +37,11 @@ defmodule Taskspa.Workers do
   """
   def get_worker!(id), do: Repo.get!(Worker, id)
 
+  def get_and_auth_worker(name, pass) do
+    worker = Repo.one(from u in Worker, where: u.name == ^name)
+    Comeonin.Argon2.check_pass(worker, pass)
+  end
+
   @doc """
   Creates a worker.
 

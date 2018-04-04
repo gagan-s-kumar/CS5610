@@ -15,11 +15,12 @@ defmodule Seeds do
   alias Taskspa.Jobs.Job
 
   def run do
+    p = Comeonin.Argon2.hashpwsalt("password1")
     Repo.delete_all(Worker)
-    a = Repo.insert!(%Worker{ name: "alice", email: "alice@gmail.com" })
-    b = Repo.insert!(%Worker{ name: "bob", email: "bob@gmail.com" })
-    c = Repo.insert!(%Worker{ name: "carol", email: "carol@gmail.com" })
-    d = Repo.insert!(%Worker{ name: "dave", email: "dave@gmail.com" })
+    a = Repo.insert!(%Worker{ name: "alice", email: "alice@gmail.com", password_hash: p })
+    b = Repo.insert!(%Worker{ name: "bob", email: "bob@gmail.com", password_hash: p })
+    c = Repo.insert!(%Worker{ name: "carol", email: "carol@gmail.com", password_hash: p })
+    d = Repo.insert!(%Worker{ name: "dave", email: "dave@gmail.com", password_hash: p })
 
     Repo.delete_all(Job)
     Repo.insert!(%Job{ worker_id: a.id, title: "Alice Task", description: "Alice first", duration: 15, completed: false })

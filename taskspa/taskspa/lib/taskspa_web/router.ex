@@ -27,5 +27,6 @@ defmodule TaskspaWeb.Router do
     pipe_through :api
     resources "/workers", WorkerController, except: [:new, :edit]
     resources "/jobs", JobController, except: [:new, :edit]
+    post "/token", TokenController, :create
   end
 end

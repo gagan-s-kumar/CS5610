@@ -6,6 +6,8 @@ defmodule Taskspa.Workers.Worker do
   schema "workers" do
     field :email, :string
     field :name, :string
+    field :password_hash, :string
+    field :password, :string, virtual: true
 
     timestamps()
   end
@@ -13,7 +15,7 @@ defmodule Taskspa.Workers.Worker do
   @doc false
   def changeset(worker, attrs) do
     worker
-    |> cast(attrs, [:name, :email])
+    |> cast(attrs, [:name, :email, :password])
     |> validate_required([:name, :email])
   end
 end

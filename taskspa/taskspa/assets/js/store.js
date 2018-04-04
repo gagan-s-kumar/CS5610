@@ -52,11 +52,34 @@ function form(state = empty_form, action) {
   }
 }
 
+function token(state = null, action) {
+  switch (action.type) {
+    case 'SET_TOKEN':
+      return action.token;
+    default:
+      return state;
+  }
+}
+
+let empty_login = {
+  name: "",
+  pass: "",
+};
+
+function login(state = empty_login, action) {
+  switch (action.type) {
+    case 'UPDATE_LOGIN_FORM':
+      return Object.assign({}, state, action.data);
+    default:
+      return state;
+  }
+}
+
 function root_reducer(state0, action) {
   console.log("reducer", action);
   // {posts, users, form} is ES6 shorthand for
   // {posts: posts, users: users, form: form}
-  let reducer = combineReducers({jobs, workers, form});
+  let reducer = combineReducers({jobs, workers, form, token, login});
   let state1 = reducer(state0, action);
   console.log("state1", state1);
   return deepFreeze(state1);
