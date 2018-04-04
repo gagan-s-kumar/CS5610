@@ -15,7 +15,7 @@ defmodule Taskspa.Workers.Worker do
   @doc false
   def changeset(worker, attrs) do
     worker
-    |> cast(attrs, [:name, :email, :password])
+    |> cast(attrs, [:name, :email, :password, :password_hash])
     |> validate_required([:name, :email])
   end
 end

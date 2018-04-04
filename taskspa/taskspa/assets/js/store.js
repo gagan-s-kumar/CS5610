@@ -29,6 +29,8 @@ function workers(state = [], action) {
   switch (action.type) {
   case 'WORKERS_LIST':
     return [...action.workers];
+  case 'ADD_WORKER':
+    return [action.worker, ...state];
   default:
     return state;
   }

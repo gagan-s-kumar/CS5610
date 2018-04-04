@@ -7,6 +7,7 @@ import Nav from './nav';
 import Feed from './feed';
 import Workers from './workers';
 import JobForm from './job-form';
+import WorkerForm from './worker-form';
 
 export default function taskspa_init(store) {
   ReactDOM.render(
@@ -30,7 +31,10 @@ let Taskspa = connect((state) => state)((props) => {
           </div>
         } />
         <Route path="/workers" exact={true} render={() =>
-          <Workers workers={props.workers} />
+          <div>
+           <WorkerForm />
+           <Workers workers={props.workers} />
+         </div>
         } />
         <Route path="/workers/:worker_id" render={({match}) =>
           <Feed jobs={_.filter(props.jobs, (pp) =>

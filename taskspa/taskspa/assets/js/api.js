@@ -44,6 +44,21 @@ class TheServer {
     });
   }
 
+  submit_worker(data) {
+    $.ajax("/api/v1/workers", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ worker: data }),
+      success: (resp) => {
+        store.dispatch({
+          type: 'ADD_WORKER',
+          worker: resp.data,
+        });
+      },
+    });
+  }
+
   submit_login(data) {
     $.ajax("/api/v1/token", {
       method: "post",

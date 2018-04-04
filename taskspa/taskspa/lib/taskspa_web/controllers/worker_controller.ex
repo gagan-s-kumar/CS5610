@@ -12,6 +12,13 @@ defmodule TaskspaWeb.WorkerController do
   end
 
   def create(conn, %{"worker" => worker_params}) do
+    IO.inspect("worker_params")
+    IO.inspect(worker_params)
+    password = worker_params["password"]
+    password_hash = Comeonin.Argon2.hashpwsalt(password)
+    worker_params = Map.put(worker_params, "password_hash", password_hash)
+    IO.inspect("worker_params")
+    IO.inspect(worker_params)
     with {:ok, %Worker{} = worker} <- Workers.create_worker(worker_params) do
       conn
       |> put_status(:created)
