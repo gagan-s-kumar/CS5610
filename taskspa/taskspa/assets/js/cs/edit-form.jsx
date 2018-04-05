@@ -32,6 +32,12 @@ function EditForm(params) {
     api.request_jobs();
   }
 
+  function job_delete(ev) {
+    api.delete_job(job.id);
+    console.log("Callin edit");
+    api.request_jobs();
+  }
+
   function clear(ev) {
     props.dispatch({
       type: 'CLEAR_FORM',

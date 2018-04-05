@@ -55,6 +55,16 @@ class TheServer {
     });
   }
 
+  delete_job(id) {
+    $.ajax("/api/v1/jobs/" + id, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+      },
+    });
+  }
+
   submit_worker(data) {
     $.ajax("/api/v1/workers", {
       method: "post",
