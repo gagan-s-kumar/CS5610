@@ -26,9 +26,10 @@ function EditForm(params) {
   }
 
   function edit(ev) {
-    api.edit_job(props.form);
+    api.edit_job(props.form, job.id);
     console.log("Callin edit");
     console.log(props.form);
+    api.request_jobs();
   }
 
   function clear(ev) {
