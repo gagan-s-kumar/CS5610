@@ -17,7 +17,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
   function create_token(ev) {
     api.submit_login(props.login);
-    console.log(props.login);
+    //console.log(props.login);
   }
 
   return <div className="navbar-text">
@@ -65,10 +65,10 @@ function Nav(props) {
       </span>
       <ul className="navbar-nav mr-auto">
         <NavItem>
-          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Feed</NavLink>
+          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Jobs</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/workers" href="#" className="nav-link">All Workers</NavLink>
+          <NavLink to="/workers" href="#" className="nav-link">All Workers/Register</NavLink>
         </NavItem>
       </ul>
       { session_info }

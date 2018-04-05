@@ -4,7 +4,7 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 import api from '../api';
 
 function JobForm(props) {
-  console.log("props@JobForm", props);
+  //console.log("props@JobForm", props);
 
   function update(ev) {
     let tgt = $(ev.target);
@@ -15,13 +15,13 @@ function JobForm(props) {
       type: 'UPDATE_FORM',
       data: data,
     };
-    console.log(action);
+    //console.log(action);
     props.dispatch(action);
   }
 
   function submit(ev) {
     api.submit_job(props.form);
-    console.log(props.form);
+    //console.log(props.form);
   }
 
   function clear(ev) {
@@ -51,13 +51,13 @@ function JobForm(props) {
       <Label for="duration">Duration</Label>
       <Input type="number" name="duration" value={props.form.duration} onChange={update} />
     </FormGroup>
-    <Button onClick={submit} color="primary">Job</Button> &nbsp;
+    <Button onClick={submit} color="primary">Create Job</Button> &nbsp;
     <Button onClick={clear}>Clear</Button>
   </div>;
 }
 
 function state2props(state) {
-  console.log("rerender@JobForm", state);
+  //console.log("rerender@JobForm", state);
   return {
     form: state.form,
     workers: state.workers,

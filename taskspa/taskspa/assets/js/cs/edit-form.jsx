@@ -5,8 +5,8 @@ import api from '../api';
 
 function EditForm(params) {
 
-  console.log("Entered EDITFORM");
-  console.log(params.job[0]);
+  //console.log("Entered EDITFORM");
+  //console.log(params.job[0]);
   let props = params.props;
   let job = params.job[0];
   //props.form.title = job.title;
@@ -21,14 +21,14 @@ function EditForm(params) {
       type: 'UPDATE_FORM',
       data: data,
     };
-    console.log(action);
+    //console.log(action);
     props.dispatch(action);
   }
 
   function edit(ev) {
     api.edit_job(props.form, job.id);
-    console.log("Callin edit");
-    console.log(props.form);
+    //console.log("Callin edit");
+    //console.log(props.form);
     api.request_jobs();
   }
 
@@ -41,7 +41,7 @@ function EditForm(params) {
                   completed: true
                };
     api.edit_job(data, job.id);
-    console.log("Callin close");
+    //console.log("Callin close");
     //console.log(props.form);
     api.request_jobs();
   }
@@ -55,14 +55,14 @@ function EditForm(params) {
                   completed: false
                };
     api.edit_job(data, job.id);
-    console.log("Callin open");
+    //console.log("Callin open");
     //console.log(props.form);
     api.request_jobs();
   }
 
   function job_delete(ev) {
     api.delete_job(job.id);
-    console.log("Callin edit");
+    //console.log("Callin edit");
     api.request_jobs();
   }
 
@@ -105,7 +105,7 @@ function EditForm(params) {
 }
 
 function state2props(state) {
-  console.log("rerender@EditForm", state);
+  //console.log("rerender@EditForm", state);
   return {
     form: state.form,
     jobs: state.jobs,

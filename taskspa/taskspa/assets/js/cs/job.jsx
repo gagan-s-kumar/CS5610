@@ -8,7 +8,7 @@ import api from '../api';
 export default function Job(params) {
   let job = params.job;
   let props = params.props;
-  console.log("Props@Job", params.props);
+  //console.log("Props@Job", params.props);
   function edit(ev) {
     return <EditForm job={job} props={props}/>;
   }

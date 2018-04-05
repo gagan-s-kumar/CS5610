@@ -20,7 +20,7 @@ export default function taskspa_init(store) {
 }
 
 let Taskspa = connect((state) => state)((props) => {
-  console.log("propshere", props);
+  //console.log("propshere", props);
   return (
     <Router>
       <div>
