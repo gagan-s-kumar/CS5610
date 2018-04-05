@@ -19,11 +19,11 @@ export default function Job(params) {
   return <Card>
     <CardBody>
       <div>
-        <p>Assigned to <b>{ job.worker.name }</b></p>
-        <p>Title          { job.title }</p>
-        <p>Description    { job.description }</p>
-        <p>Duration       { job.duration }</p>
-        <p>Completed      { job.completed ? "Completed" : "No Completed"}</p>
+        <p><b>Assigned to:</b>    { job.worker.name }</p>
+        <p><b>Title:</b>          { job.title }</p>
+        <p><b>Description:</b>    { job.description }</p>
+        <p><b>Duration:</b>       { job.duration }</p>
+        <p><b>Completed:</b>      { job.completed ? "Job Completed" : "Job Open"}</p>
       </div>
       <p><Link to={"/jobs/" + job.id}>Edit</Link></p>
       <Button onClick={job_delete} color="primary">Delete</Button> &nbsp;

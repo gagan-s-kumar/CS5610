@@ -32,6 +32,34 @@ function EditForm(params) {
     api.request_jobs();
   }
 
+  function close(ev) {
+    let data = {
+                  worker_id: job.worker_id,
+                  description: job.description,
+                  title: job.title,
+                  duration: job.duration,
+                  completed: true
+               };
+    api.edit_job(data, job.id);
+    console.log("Callin close");
+    //console.log(props.form);
+    api.request_jobs();
+  }
+
+  function open(ev) {
+    let data = {
+                  worker_id: job.worker_id,
+                  description: job.description,
+                  title: job.title,
+                  duration: job.duration,
+                  completed: false
+               };
+    api.edit_job(data, job.id);
+    console.log("Callin open");
+    //console.log(props.form);
+    api.request_jobs();
+  }
+
   function job_delete(ev) {
     api.delete_job(job.id);
     console.log("Callin edit");
@@ -69,7 +97,9 @@ function EditForm(params) {
       <Input type="number" name="duration" value={props.form.duration} onChange={update} />
       <div className="old"> Current Duration: { job.duration }</div>
     </FormGroup>
-    <Button onClick={edit} color="primary">Edit</Button> &nbsp;
+    <Button onClick={close} color="primary">Close Without Edit</Button> &nbsp;
+    <Button onClick={open} color="primary">Open Without Edit</Button> &nbsp;
+    <Button onClick={edit} color="primary">Edit Task</Button> &nbsp;
     <Button onClick={clear}>Clear</Button>
   </div>;
 }
