@@ -35,13 +35,13 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   </div>;
 });
 
-function logout(ev) {
-  props.dispatch({
-    type: 'CLEAR_TOKEN',
-  });
-}
-
 let Session = connect(({token}) => {return {token};})((props) => {
+    function logout(ev) {
+       props.dispatch({
+        type: 'CLEAR_TOKEN',
+     });
+    }
+
   return <div><div className="navbar-text">
     Worker id = { props.token.worker_id }
   </div>
@@ -79,7 +79,6 @@ function Nav(props) {
 function state2props(state) {
   return {
     token: state.token,
-    form: state.form,
   };
 }
 

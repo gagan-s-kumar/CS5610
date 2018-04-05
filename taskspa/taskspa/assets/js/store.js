@@ -45,9 +45,6 @@ let empty_form = {
   duration: "",
 };
 
-let empty_token_form = {
-  token: null,
-}
 
 function form(state = empty_form, action) {
   switch (action.type) {
@@ -55,8 +52,6 @@ function form(state = empty_form, action) {
     return Object.assign({}, state, action.data);
   case 'CLEAR_FORM':
     return empty_form;
-  case 'CLEAR_TOKEN':
-    return empty_token_form;
   default:
     return state;
   }
@@ -66,6 +61,8 @@ function token(state = null, action) {
   switch (action.type) {
     case 'SET_TOKEN':
       return action.token;
+  case 'CLEAR_TOKEN':
+    return null;
     default:
       return state;
   }
